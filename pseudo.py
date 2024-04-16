@@ -8,12 +8,13 @@ class Game:
 
     method play()
         while not max_attempts and not won:
-            guess = code_breaker.make_guess()
-            feedback = game_board.check_guess(guess)
+            guess = codeBreaker.make_guess()
+            feedback = board.check_guess(guess)
             display feedback
             if feedback is full match:
                 won = True
-        Display win or lose message
+                break
+        display win or lose message
 
 class CodeMaker:
     init CodeMaker
@@ -25,7 +26,7 @@ class HumanCodeMaker inherits CodeMaker:
 
     method make_guess()
         input guess from user
-        call check_guess
+        return guess
 
 class CodeBreaker:
     init CodeBreaker
