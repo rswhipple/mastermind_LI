@@ -8,8 +8,8 @@ class Game:
 
     method play()
         while not max_attempts and not won:
-            guess = codeBreaker.make_guess()
-            feedback = board.check_guess(guess)
+            guess = CodeBreaker.make_guess()
+            feedback = Board.check_guess(guess)
             display feedback
             if feedback is full match:
                 won = True
@@ -55,16 +55,17 @@ class Board:
         compare guess with secret code
         return feedback
 
+class Score:
 
 main
     call set parameters
         choose mode
             tournament mode or individual game
-                if tournament mode choose number of players
+                choose number of players
             create game instance
-        choose code_maker (default ComputerPlayer, optional HumanPlayer)
-        choose code_breaker (default HumanPlayer, optional ComputerPlayer)
-        choose difficulty
+        choose CodeMaker (default ComputerPlayer, optional HumanPlayer)
+        # choose CodeBreaker (default HumanPlayer, optional ComputerPlayer) this is a possible extention 
+        choose Difficulty
             generate secret code (based on difficulty/players)
             init board(s) (based on difficulty/players)
     start game
