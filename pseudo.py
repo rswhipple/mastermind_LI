@@ -24,14 +24,16 @@ class CodeMaker:
 class HumanCodeMaker inherits CodeMaker:
     init HumanCodeMaker
 
-    method make_guess()
-        input guess from user
+    method make_code()
+        input code from user
         return guess
 
 class CodeBreaker:
     init CodeBreaker
 
     method make_guess()
+        input guess from user
+        return guess
 
 class Difficulty:
     init level
