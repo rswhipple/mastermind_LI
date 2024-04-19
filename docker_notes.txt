@@ -3,11 +3,14 @@ Dependencies (lite):
 pip install requests
 
 -pytest
-python3 -m venv pytest-env
-source pytest-env/bin/activate
+`python3 -m venv pytest-en`v
+    - activate the pytest-evn:
+        `source pytest-env/bin/activate`
+        `deactivate`
 pip install pytest
     - set up relational path 
-    export PYTHONPATH="/Users/rswhipple/Qwasar/GIT/mastermind_LI:$PYTHONPATH"
+        export PYTHONPATH="/Users/rswhipple/Qwasar/GIT/mastermind_LI:$PYTHONPATH"
+
 
 
 Dependencies (robust):
