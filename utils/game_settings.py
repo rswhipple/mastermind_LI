@@ -2,7 +2,7 @@ class GameSettings:
     tournament_mode = False
     score_mode = False
     num_players = 1
-    difficulty = 0
+    level = 0
 
     def __init__(self) -> None:
         self._run()
@@ -40,26 +40,26 @@ class GameSettings:
         if self._binary_choice(option_flag, question, "2", "1"):
             self.num_players = 2
 
-    def _set_difficulty(self):
+    def _set_level(self):
         question = "Choose your challenge level! Level 1, 2 or 3"
 
         while True:
             answer = int(input(f"{question}").strip())
             if answer <= 3 and answer > 0:
-                self.difficulty = answer
+                self.level = answer
                 break
 
     def _print_settings(self):
         print(f"tournament_mode = {self.tournament_mode}")
         print(f"score_mode = {self.score_mode}")
         print(f"num_players = {self.num_players}")
-        print(f"difficulty = {self.difficulty}")
+        print(f"level = {self.level}")
 
     def _run(self):
-        self._set_mode()
-        self._set_score()
-        self._set_players()
-        self._set_difficulty() 
+        # self._set_mode()
+        # self._set_score()
+        # self._set_players()
+        # self._set_level() 
 
         # test by printing settings
         self._print_settings()

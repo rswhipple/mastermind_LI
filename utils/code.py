@@ -3,9 +3,9 @@ import requests
 class Code:
     def __init__(self, level) -> None:
         self.level = level
-        self.num = 4
+        self.num = 4 + level
         self.min = 0
-        self.max = 7
+        self.max = 7 + level
         
     def generate_code(self):
         u1 = "https://www.random.org/integers/?num="
