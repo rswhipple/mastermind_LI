@@ -2,8 +2,7 @@ from utils import GameSettings, Game
 
 def main():
     new_settings = GameSettings()
-    new_game = Game(new_settings)
-    # new_game._run
+    Game(new_settings)
 
 if __name__ == "__main__":
     main()
