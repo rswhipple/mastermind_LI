@@ -6,6 +6,7 @@ class GameSettings:
 
     def __init__(self) -> None:
         self._run()
+        self.num_vars = 8 # + self.level
     
     def _binary_choice(option_flag, question, a, b) -> bool:
         while True:
