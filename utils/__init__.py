@@ -1,7 +1,8 @@
 # utils/__init__.py
 
-import game
-import levels
-import players
+from .game_settings import GameSettings
+from .game import Game
+from .code import Code
+# import players
 
-# __all__ = ['', '']
+__all__ = ['GameSettings', 'Game', 'Code']

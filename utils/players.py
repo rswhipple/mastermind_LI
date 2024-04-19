@@ -1,11 +1,11 @@
-from game import Code
+from utils import code
 
 class CodeMaker:
     def __init__(self) -> None:
         pass
 
     def make_code():
-        code = Code.generate()
+        code = code.Code._generate_code()
 
 
 class HumanCodeMaker(CodeMaker):

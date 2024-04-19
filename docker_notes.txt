@@ -1,0 +1,19 @@
+Dependencies (lite):
+- requests
+pip install requests
+
+
+Dependencies (robust):
+
+- python image
+- fastapi
+pip install "uvicorn[standard]"
+- uvicorn
+pip install "uvicorn[standard]"
+- SQLAlchemy
+pip install SQLAlchemy
+- asyncpg
+pip install asyncpg
+-postgresql
+brew install postgresql
+/usr/local/opt/postgresql@14/bin/postgres -D /usr/local/var/postgresql@14

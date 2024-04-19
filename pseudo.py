@@ -60,20 +60,20 @@ class Board:
 class Score:
 
 main
-    call set parameters
+    create game settings
         choose mode
             tournament mode or individual game
-                choose number of players
-            create game instance
+            keep score or no
+        choose number of players
         choose CodeMaker (default ComputerPlayer, optional HumanPlayer)
         # choose CodeBreaker (default HumanPlayer, optional ComputerPlayer) this is a possible extention 
         choose Difficulty
-            generate secret code (based on difficulty/players)
-            init board(s) (based on difficulty/players)
-    start game
+            easy, medium or hard
+        
+    create game
+    run game
         play again?
     return
-    
 """
 
 
