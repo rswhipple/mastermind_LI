@@ -1,3 +1,5 @@
+# utils/code.py
+
 import requests
 
 class Code:
@@ -6,6 +8,8 @@ class Code:
         self.num = 4 + level
         self.min = 0
         self.max = 7 + level
+        self.code = []
+        self.generate_code()
         
     def generate_code(self):
         u1 = "https://www.random.org/integers/?num="
@@ -17,9 +21,9 @@ class Code:
         response = requests.get(f"{u1}{self.num}{u2}{self.min}{u3}{self.max}{u4}")
 
         if response.status_code == 200:
-            board = list(response.text.replace('\n', ''))
-            print(f"{board}")
-            return board
+            random_nums = list(response.text.replace('\n', ''))
+            print(f"{random_nums}")
+            self.code = random_nums
         else:
             print("Failed to generate code:", response.status_code)
 
