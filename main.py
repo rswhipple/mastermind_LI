@@ -1,5 +1,5 @@
 from db import *
-from utils import GameSettings, Game
+from utils import *
 
 def main():
     db = setup_db()

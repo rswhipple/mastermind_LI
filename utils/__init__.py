@@ -2,8 +2,8 @@
 
 from .game_settings import GameSettings
 from .code import Code
+from .timer import GameTimer
+from .score import Score
 from .game import Game
-# import level
-# import players
 
-__all__ = ['GameSettings', 'Game', 'Code']
+__all__ = ['GameSettings', 'Code', 'GameTimer', 'Score', 'Game']

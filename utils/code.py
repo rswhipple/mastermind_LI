@@ -1,5 +1,4 @@
 # utils/code.py
-
 import requests
 
 class Code:

@@ -6,6 +6,8 @@ from .score import Score
 # from db import MastermindDB
 
 class Game:
+    score = None
+
     def __init__(self, settings: GameSettings) -> None:
         self._reset(settings)
     
@@ -13,17 +15,15 @@ class Game:
         self.code = Code(settings.level)
         self.board = self.code.code
         self.len = len(self.board)
-        self.score = None
         if settings.score_mode:
-            self.score = Score(self)
+            self.score = Score()
         self.var = 'digits'
         self.rounds = 10
         self.cur = 1
         self.guess = []
         self.fb = [0] * 2
         self.play = False
-        self._print_code()
-        self._play(self.code, settings)
+        self._play(settings)
 
     def _reset_guess(self):
         self.guess = []
@@ -59,9 +59,9 @@ class Game:
             self.score.timer.start()
 
         while not game_over:
-            self._get_guess(inst, self.code)
+            self._get_guess(inst)
             # print(f"Guess = {self.guess}")    # testing only
-            game_over = self._evaluate(a_hash, self.code)    
+            game_over = self._evaluate(a_hash)    
         
         if settings.score_mode:
             self.score.timer.stop()

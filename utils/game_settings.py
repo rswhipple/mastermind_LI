@@ -52,7 +52,7 @@ class GameSettings:
         print(f"level = {self.level}")
 
     def _run(self):
-        self._set_mode()
+        #self._set_mode()
         self._set_score()
         # self._set_players()
         # self._set_level() 
