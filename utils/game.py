@@ -10,21 +10,20 @@ class Game:
         self._reset(settings)
     
     def _reset(self, settings: GameSettings):
-        code = Code(settings.level)
-        self.board = code.code
+        self.code = Code(settings.level)
+        self.board = self.code.code
         self.len = len(self.board)
+        self.score = None
+        if settings.score_mode:
+            self.score = Score(self)
         self.var = 'digits'
         self.rounds = 10
         self.cur = 1
         self.guess = []
         self.fb = [0] * 2
         self.play = False
-        self.score = None
-        if settings.score_mode:
-            self.score = Score(self)
         self._print_code()
-        self._play(code, settings)
-        # Players(settings.num_players)
+        self._play(self.code, settings)
 
     def _reset_guess(self):
         self.guess = []
@@ -33,33 +32,39 @@ class Game:
     def _print_inst(self, inst):
         print(f"\nTry to figure out the secret code. {inst}")
         
-    def _print_code(self):
+    def _print_secret_code(self): # testing only
         print(f"\nThe secret code is: {self.board}")
 
-    def _get_guess(self, inst, code: Code):
+    def _get_guess(self, inst):
         while True:
             input_str = input(f"ROUND {self.cur}\nEnter guess: ").strip()
             if len(input_str) == self.len and input_str.isdigit():
                 self.guess = [int(char) for char in input_str] 
-                if all(code.min <= num <= code.max for num in self.guess):
+                if all(self.code.min <= num <= self.code.max for num in self.guess):
                     break
             else:
                 print(f"Invalid guess. Your guess must be {inst}.\n")
 
-    def _play(self, code: Code, settings: GameSettings):
-        inst = f"{self.len} {self.var} between {code.min} and {code.max}"
+    def _play(self, settings: GameSettings):
+        inst = f"{self.len} {self.var} between {self.code.min} and {self.code.max}"
         self._print_inst(inst)
 
         game_over = False
-        a_hash = [0] * (code.total_vars)
+        a_hash = [0] * (self.code.total_vars)
 
         for num in range(self.len):
             a_hash[self.board[num]] += 1
 
+        if settings.score_mode:
+            self.score.timer.start()
+
         while not game_over:
-            self._get_guess(inst, code)
-            # print(f"Guess = {self.guess}")   
-            game_over = self._evaluate(a_hash, code)    
+            self._get_guess(inst, self.code)
+            # print(f"Guess = {self.guess}")    # testing only
+            game_over = self._evaluate(a_hash, self.code)    
+        
+        if settings.score_mode:
+            self.score.timer.stop()
         
         if self.fb[0] == 4:
             print("You won!")
@@ -72,12 +77,12 @@ class Game:
             if not settings.binary_choice(question, 'yes', 'no'): self._reset(settings)
             else: self.play = True
  
-    def _evaluate(self, a_hash, code: Code) -> bool:
-        g_hash = [0] * (code.total_vars)
+    def _evaluate(self, a_hash) -> bool:
+        g_hash = [0] * (self.code.total_vars)
         for index in range(self.len):
             g_hash[self.guess[index]] += 1
         
-        for num in range(code.total_vars):
+        for num in range(self.code.total_vars):
             self.fb[1] += min(a_hash[num], g_hash[num])
 
         for num in range(self.len):
@@ -91,7 +96,3 @@ class Game:
         self._reset_guess()
         return False
 
-
-
-# class MultiPlayer(Game):
-#     def 

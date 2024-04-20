@@ -6,6 +6,3 @@ class Score:
         self.timer = GameTimer()
         self.rounds = game.rounds
         self.result = 0
-
-    def run_timer(self):
-        self.timer.start()

@@ -1,5 +1,5 @@
 # db/__init__.py
 
-from .database import MastermindDB
+from .database import MastermindDB, setup_db
 
-__all__ = ['MastermindDB']
+__all__ = ['MastermindDB', setup_db]
