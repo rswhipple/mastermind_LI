@@ -11,8 +11,7 @@ class MastermindDB:
             self.db_queue = queue.Queue() # add Queue for task_handler
             self.db_thread = threading.Thread(target=self._db_task_handler) # create Thread for task_handler
             self.db_thread.start()
-            self.active = True
-            print(f"Multithread connection to SQLite database at {db_file}")
+            print(f"Multithread connection to SQLite database ./{db_file}.\n")
         except Error as e:
             print(e)
 
@@ -29,7 +28,7 @@ class MastermindDB:
 
     def add_player(self, name):
         sql = '''INSERT INTO players(name) VALUES(?)'''
-        self._execute_task(sql, name)
+        self._execute_task(sql, (name))
     
     def add_game(self, player_id, start_time, end_time, score):
         sql = '''INSERT INTO games(start_time, end_time, score) VALUES(?,?,?)'''
@@ -48,12 +47,11 @@ class MastermindDB:
     #     self.execute_task(sql, (game_id, guess, feedback))
     
     def _db_task_handler(self):
-        while self.active:
+        while True:
             item = self.db_queue.get()
             if item is None:
-                self.active = False
                 self.conn.close()
-                continue
+                break
             sql, data = item
             try:
                 cursor = self.conn.cursor()
@@ -75,7 +73,7 @@ def setup_db() -> MastermindDB:
     db = MastermindDB('mastermind.db')
     db.create_table(""" CREATE TABLE IF NOT EXISTS players (
                             player_id integer PRIMARY KEY,
-                            name text,
+                            name text
                         ); """)
     db.create_table(""" CREATE TABLE IF NOT EXISTS games (
                             game_id integer PRIMARY KEY,
