@@ -2,15 +2,15 @@ from db import *
 from utils import *
 
 def main():
-    db = setup_db()
+    setup_db()
     keep_playing = True
 
     while keep_playing:
-        new_settings = GameSettings()
-        game = Game(new_settings)
+        settings = GameSettings()
+        db = connect_db(settings.tournament_mode)
+        game = Game(settings)
         keep_playing = game.play
-    
-    db.close_db()
+        db.close_db()
 
 if __name__ == "__main__":
     main()
