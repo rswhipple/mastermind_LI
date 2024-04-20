@@ -1,5 +1,7 @@
 from utils import code
 
+
+
 class CodeMaker:
     def __init__(self) -> None:
         pass
@@ -19,3 +21,7 @@ class HumanCodeMaker(CodeMaker):
 class CodeBreaker:
     def __init__(self) -> None:
         pass
+
+class ComputerCodeBreaker(CodeBreaker):
+    def __init__(self) -> None:
+        super().__init__()

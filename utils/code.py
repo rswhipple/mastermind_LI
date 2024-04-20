@@ -8,6 +8,7 @@ class Code:
         self.num = 4 + level
         self.min = 0
         self.max = 7 + level
+        self.total_vars = self.max - self.min + 1
         self.code = []
         self.generate_code()
         
@@ -24,7 +25,7 @@ class Code:
             code_string = response.text.replace('\n', '')
             random_ints = [int(char) for char in code_string]
 
-            print(f"{random_ints}")
+            # print(f"{random_ints}")
             self.code = random_ints
         else:
             print("Failed to generate code:", response.status_code)

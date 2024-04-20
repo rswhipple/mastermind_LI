@@ -17,6 +17,13 @@ class MastermindDB:
         except Error as e:
             print(e)
 
+    def add_player(self, name, wins=0, losses=0):
+        sql = '''INSERT INTO players(name, wins, losses) VALUES(?,?,?)'''
+        cur = self.conn.cursor()
+        cur.execute(sql, (name, wins, losses))
+        self.conn.commit()
+        return cur.lastrowid
+    
     def add_game(self, start_time, end_time, result):
         sql = '''INSERT INTO games(start_time, end_time, result) VALUES(?,?,?)'''
         cur = self.conn.cursor()
@@ -39,11 +46,19 @@ class MastermindDB:
 # Usage
 if __name__ == '__main__':
     db = MastermindDB('mastermind.db')
+    db.create_table(""" CREATE TABLE IF NOT EXISTS players (
+                            player_id integer PRIMARY KEY,
+                            name text
+                            wins integer array NOT NULL
+                            losses integer array NOT NULL
+                        ); """)
     db.create_table(""" CREATE TABLE IF NOT EXISTS games (
                             game_id integer PRIMARY KEY,
+                            player_id integer NOT NULL,
                             start_time text NOT NULL,
                             end_time text,
                             result text
+                            FOREIGN KEY (player_id) REFERENCES players (player_id)
                         ); """)
     db.create_table(""" CREATE TABLE IF NOT EXISTS guesses (
                             guess_id integer PRIMARY KEY,
