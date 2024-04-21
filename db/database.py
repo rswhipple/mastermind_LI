@@ -7,9 +7,9 @@ class MastermindDB:
     def __init__(self, db_file):
         self.conn = None
         try:
-            self.conn = sqlite3.connect(db_file, check_same_thread=False)
+            self.conn = sqlite3.connect(db_file)
             print(f"Connected to SQLite database at {db_file}")
-        except sqlite3.Error as e:  # Ensure to catch sqlite3 specific exceptions
+        except sqlite3.Error as e: 
             print(e)
 
     def close_db(self):
@@ -23,7 +23,7 @@ class MastermindDB:
 
     def add_player(self, name):
         sql = '''INSERT INTO players(name) VALUES(?)'''
-        self._execute_task(sql, (name))
+        self._execute_task(sql, (name,))
     
     def add_game(self, player_id, start_time, end_time, score):
         sql = '''INSERT INTO games(start_time, end_time, score) VALUES(?,?,?)'''
@@ -41,12 +41,26 @@ class MastermindDB:
     #     sql = '''INSERT INTO guesses(game_id, guess, feedback) VALUES(?,?,?)'''
     #     self.execute_task(sql, (game_id, guess, feedback))
 
+    def find_player(self, name):
+        sql = '''SELECT * FROM players WHERE name = (?)'''
+        return self._get_data(sql, (name,))
+
     def _execute_task(self, sql, data=()):
         try:
             c = self.conn.cursor()
             c.execute(sql, data)
         except Error as e:
             print(e)
+    
+    def _get_data(self, sql, data=()):
+        try:
+            c = self.conn.cursor()
+            c.execute(sql, data)
+            return c.fetchall()  # fetchone() for one row
+        except Error as e:
+            print(e)
+            return None
+
 
 
 class MultiThreadDB(MastermindDB):
@@ -126,12 +140,13 @@ def setup_db():
 
     db.close_db()
 
-def connect_db(multi=False) -> MastermindDB:
+def connect_db() -> MastermindDB:
     db_file = 'mm_db.sqlite3'
-    if multi:
-        return MultiThreadDB(db_file)
-    else:
-        return MastermindDB(db_file)
+    return MastermindDB(db_file)
+    # if multi:
+    #     return MultiThreadDB(db_file)
+    # else:
+    #     return MastermindDB(db_file)
 
 if __name__ == "__main__":
     setup_db()

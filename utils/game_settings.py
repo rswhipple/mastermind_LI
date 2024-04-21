@@ -1,3 +1,5 @@
+from .helper import binary_choice
+
 class GameSettings:
     def __init__(self) -> None:
         self.tournament_mode = False
@@ -7,33 +9,33 @@ class GameSettings:
         self._run()
         self.num_vars = 8 # + self.level
     
-    def binary_choice(self, question, a, b) -> bool:
-        while True:
-            answer = input(f"{question}").strip().lower()
+    # def binary_choice(self, question, a, b) -> bool:
+    #     while True:
+    #         answer = input(f"{question}").strip().lower()
 
-            if answer == a:
-                return True
-            elif answer == b:
-                return False
-            else:
-                print(f"Please enter either '{a}' or '{b}'.")
+    #         if answer == a:
+    #             return True
+    #         elif answer == b:
+    #             return False
+    #         else:
+    #             print(f"Please enter either '{a}' or '{b}'.")
 
     def _set_mode(self):
         question = "Do you want to play a solo game or in championship mode (solo/champ)? "
 
-        if self.binary_choice(question, 'champ', 'solo'):
+        if binary_choice(question, 'champ', 'solo'):
             self.tournament_mode = True
     
     def _set_score(self):
         question = "Do you want to keep score (yes/no)? "
 
-        if self.binary_choice(question, 'yes', 'no'):
+        if binary_choice(question, 'yes', 'no'):
             self.score_mode = True     
 
     def _set_players(self):
         question = "How many players (1/2)? "
         
-        if self.binary_choice(question, "2", "1"):
+        if binary_choice(question, "2", "1"):
             self.num_players = 2
 
     def _set_level(self):
@@ -53,9 +55,9 @@ class GameSettings:
 
     def _run(self):
         #self._set_mode()
+        #self._set_level() 
         self._set_score()
-        # self._set_players()
-        # self._set_level() 
+        self._set_players()
 
         # test by printing settings
         self._print_settings()

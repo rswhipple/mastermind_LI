@@ -7,10 +7,8 @@ def main():
 
     while keep_playing:
         settings = GameSettings()
-        db = connect_db(settings.tournament_mode)
         game = Game(settings)
-        keep_playing = game.play
-        db.close_db()
+        keep_playing = game.keep_playing
 
 if __name__ == "__main__":
     main()
