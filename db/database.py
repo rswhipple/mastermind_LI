@@ -87,7 +87,7 @@ class MultiThreadDB(MastermindDB):
 
 
 def setup_db():
-    print("Setting up the database.")
+    print("Checking for database.")
 
     db = MastermindDB('mm_db.sqlite3')
     db.create_table(""" CREATE TABLE IF NOT EXISTS players (
