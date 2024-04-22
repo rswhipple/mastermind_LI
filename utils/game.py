@@ -17,7 +17,6 @@ class Game:
         self.p = self._get_player(settings.num_players)
         self.var = 'digits'
         self.rounds = 5
-        self.win = False
         self._reset(settings)
         if self.refresh:
             self.db.close_db()  # close db
@@ -35,6 +34,7 @@ class Game:
             f"{self.b_len} {self.var} between {self.c.min} and {self.c.max}"
         self.keep_playing = False
         self.refresh = False
+        self.win = False
         self._play(settings)
 
     def _get_player(self, num) -> list:
@@ -91,6 +91,7 @@ class Game:
             print(f"You won!")
             self.win = True
         else:
+            self.win = False
             print("All out of guesses, sorry, you lost this one.")
             
         print(f"Game {self.dur}")
@@ -106,7 +107,7 @@ class Game:
 
         if binary_choice(question, 'yes', 'no'):
             for num in range(settings.num_players):
-                self.p[num].check_win_loss()
+                self.p[num].check_win_loss(self.db)
 
     def _evaluate(self, a_hash) -> bool:
         g_hash = self._create_hash(self.guess)

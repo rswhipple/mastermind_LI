@@ -36,7 +36,7 @@ class MastermindDB:
         return self._execute_task(sql, (player_id, game_id, round))
 
     def add_loss(self, player_id, game_id):
-        sql = 'INSERT INTO wins(player_id, game_id) VALUES(?,?)'
+        sql = 'INSERT INTO losses(player_id, game_id) VALUES(?,?)'
         return self._execute_task(sql, (player_id, game_id))
     
     # def add_guess(self, game_id, round, guess, feedback):
@@ -46,6 +46,14 @@ class MastermindDB:
     def find_player(self, name):
         sql = '''SELECT * FROM players WHERE name = (?)'''
         return self._get_data(sql, (name,))
+    
+    def get_win(self, player_id):
+        sql = '''SELECT COUNT(*) FROM wins WHERE player_id = ?'''
+        return self._get_data(sql, (player_id,))
+    
+    def get_loss(self, player_id):
+        sql = '''SELECT COUNT(*) FROM losses WHERE player_id = ?'''
+        return self._get_data(sql, (player_id,))
 
     def _execute_task(self, sql, data=()):
         try:

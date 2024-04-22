@@ -51,7 +51,7 @@ class GameSettings:
             )
 
     def _run(self):
-        self._set_mode()
+        # self._set_mode()
         self._set_level() 
         self._set_score()
         # self._set_players()
