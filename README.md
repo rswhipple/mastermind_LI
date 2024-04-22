@@ -1,5 +1,5 @@
 # mastermind_LI
-Welcome to my Python/OOP version  of the 70's game Mastermind, where the goal is to guess the secret code within a set number of attempts.
+Welcome to my Python - OOP version of the 70's game Mastermind, where the goal is to guess the secret code within a set number of attempts.
 
 My implementation is structured with multiple classes that manage game mechanics, player data, and game settings, enhanced with database support for tracking statistics.
 
@@ -67,9 +67,6 @@ Serves as the central engine managing all gameplay.
 - The `Game` class takes 1 parameter, the `GameSettings` object. 
 - All other class objects are initiated within the `Game` class. This structure mnimizes the risk of circular dependencies and simplifies argument passing. 
 - All `Game` methods are private, and called from within the class.
-<!-- - **Key Methods**:
-  - `_play()`: Manages a single round of guessing in the game.
-  - `evaluate()`: Concludes the game session and stores results. -->
 
 **Player Class:** This class represents the player and manages their identification and game history.
 
@@ -77,7 +74,7 @@ Serves as the central engine managing all gameplay.
   - `id`: Unique identifier for each player.
   - `name`: Player's name.
 - **Methods**:
-  - `_get_name()`: Fetches user input for name selection.
+  - `_get_name()`: Allows user input for name selection.
   - `check_win_loss()`: Retrieves win and loss stats for player.
 
 **Code Class:**
@@ -94,7 +91,7 @@ Manages the timing of each game, providing data on how long the player takes to 
 - **Methods**:
   - `start_timer()`: Starts the timer at the beginning of the game.
   - `stop_timer()`: Stops the timer when the game ends and calculates the total time taken.
-  - `get_duration()`: Fetches the duration of playing time for the last completed game, return a string representation of seconds (precision level 2).
+  - `get_duration()`: Fetches the duration of playing time for the last completed game, returns a string representation in seconds (precision level 2).
 
 ## Additional Design Elements
 
@@ -112,7 +109,7 @@ Manages the timing of each game, providing data on how long the player takes to 
 
 ## Features Attempted but Not Included
 
-During the development of this Mastermind program, I envisioned several features that aimed to enhance user interaction and provide a dynamic gaming experience. 
+During the development of this Mastermind program, I envisioned an ambitious feature that aimed to enhance user interaction and provide a dynamic gaming experience. Ultimately, I decided that I did not have the time to complete the feature; however, I did explore several technologies and concepts in the process:
 
 ### Web-Based Application Interface
 
@@ -120,20 +117,9 @@ During the development of this Mastermind program, I envisioned several features
 A web-based interface would have made the game accessible from browsers. This interface was intended to support displaying up to three games concurrently, allowing spectators to watch and players to compete against each other.
 
 **Implementation:**
-I experimented creating an API with both FastAPI and Django. I choose these options for their ability to handle asynchronous operations, broad industry-wide adoption and real-time web communication.
+I experimented creating APIs with both FastAPI and Django. I choose these options for their ability to handle asynchronous operations, broad industry-wide adoption and real-time web communication. I also initiated the implementation of multithreaded database interactions.
 
 **Reason for Exclusion:**
-Transforming the CLI-based game into a web application required a shift in the underlying architecture, including the adoption of web technologies (FastAPI or Django) with which I was less familiar. Additionally, I did not want to divert my focus to include frontend implementation. Given my timeline, prioritizing this transformation was deemed impractical.
-
-### Multithread Database Interactions
-
-**Concept:**
-The aforementioned web-based interface, designed for multiple players to compete simultaneously in real-time, would necessitate asynchronous operations.
-
-**Implementation:**
-I initiated the implementation of multithreaded database interactions. 
-
-**Reason for Exclusion:**
-Same as above.
+Transforming the CLI-based game into a web application required a shift in the underlying architecture, including the adoption of web technologies (FastAPI or Django) with which I was less familiar. Additionally, I did not want to divert my focus to include frontend implementation. Given my timeline, prioritizing this transformation was impractical.
 
 ---
