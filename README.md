@@ -9,11 +9,11 @@ My implementation is structured with multiple classes that manage game mechanics
   - **Standard Mode**: Play a single game of Mastermind.
   - **Series Mode**: Engage in a series of 5 games with a summary of results at the end.
 
-- **Difficulty Settings**: Adjust the number of slots in the secret code to increase the game's challenge.
+- **Difficulty Settings**: Adjust the number of variable options in the secret code to increase the game's challenge.
 
 - **Scoring System**: Opt in or out of scoring to customize how competitive the game feels.
 
-- **Persistent Storage**: Utilizes an SQLite database to track each game's details, including scores, wins, losses, and player stats, all linked to a unique player ID.
+- **Archives**: Utilizes an SQLite database to track each game's details, including scores, wins, losses, and player stats, all linked to a unique player ID.
 
 - **Game Timer**: Monitor how long it takes to solve each code with an integrated timer.
 
