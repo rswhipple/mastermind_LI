@@ -2,7 +2,7 @@ from .helper import binary_choice
 
 class GameSettings:
     def __init__(self) -> None:
-        self.game_mode = False
+        self.series_mode = False
         # self.multi_mode = False 
         self.score_mode = False
         self.num_players = 1
@@ -15,7 +15,7 @@ class GameSettings:
                     )
 
         if binary_choice(question, 'series', 'solo'):
-            self.game_mode = True
+            self.series_mode = True
     
     def _set_players(self):
         question = "How many players?\n Enter a number between 1 and 5: "

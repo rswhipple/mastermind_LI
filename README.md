@@ -1,13 +1,13 @@
 # mastermind_LI
 Welcome to my Python/OOP version  of the 70's game Mastermind, where the goal is to guess the secret code within a set number of attempts.
 
-My implementation is structured with multiple classes to manage game mechanics, player data, and game settings, enhanced with database support for tracking statistics.
+My implementation is structured with multiple classes that manage game mechanics, player data, and game settings, enhanced with database support for tracking statistics.
 
 ## Features
 
 - **Game Modes**:
   - **Standard Mode**: Play a single game of Mastermind.
-  - **Tournament Mode**: Engage in a series of 5 games with a summary of results at the end.
+  - **Series Mode**: Engage in a series of 5 games with a summary of results at the end.
 
 - **Difficulty Settings**: Adjust the number of slots in the secret code to increase the game's challenge.
 
@@ -46,28 +46,32 @@ Docker:
 ## How to Play
 
 1. **Start the Game**: Launch the game from your terminal by running `python3 main.py`.
-2. **Select Game Mode**: Choose from standard or tournament mode.
-3. **Set Difficulty**: Select the difficulty level, each level adds an additonal slot in the secret code.
+2. **Select Game Mode**: Choose from solo or series mode.
+3. **Set Difficulty**: Select the difficulty level – each level adds an additonal variable option for the secret code.
 4. **Choose to Keep Score**: Opt into scoring to add a level of competition to your game.
 5. **Enter Player Name**: Start with a new name or reuse a past name to keep track of game statistics.
-4. **Guess the Code**: Enter your guesses based on feedback from previous attempts. The game will indicate how many of your guessed numbers and positions are correct. Black means the number and postion is correct, White means just the number is correct.
-5. **End of Game**: The game concludes either when you guess the code correctly or exhaust your attempts. In tournament mode, proceed through multiple games.
+4. **Guess the Code**: Enter your guesses based on feedback from previous attempts. The game will indicate how many of your guess variables and positions are correct. Black indicates that both the variable and postion are correct, White means you have a correct variable in the wrong position.
+5. **End of Game**: The game concludes either when you guess the code correctly or exhaust your attempts. 
 
 ## Class Overview
 
-**Game Class:** 
-Serves as the central engine for managing the entire gameplay process. It coordinates the interaction between the player, game settings, and game components, such as the secret code and timer. 
-- All `Game` methods are private. The game loop begins automatically when you initiate a `Game` object.
-- The `Game` class takes one parameter: the `GameSettings` object.
-- **Methods**:
-  - `_play()`: Manages a single round of guessing in the game.
-  - `end_game()`: Concludes the game session and stores results.
-
-**GameSettings CLass:** 
-Handles the configuration of the game, including difficulty levels and scoring options.
+**GameSettings Class:** 
+Handles the configuration of the game.
 - **Attributes**:
-  - `difficulty`: Number of slots in the secret code, which affects the game's challenge.
-  - `scoring_enabled`: Boolean indicating if scoring should be tracked.
+  - `series_mode`: Boolean indicating whether playing individual games or a series.
+  - `multi_mode`: Boolean indicating whether playing with multiple players. *Not yet implemented*
+  - `score_mode`: Boolean indicating if scoring should be tracked.
+  - `num_players`: Int tracking the number of players. *Only used with multi-player*
+  - `level`: Int indicating the difficulty level. *Current level options are 1 to 3*
+
+**Game Class:** 
+Serves as the central engine managing all gameplay. 
+- The `Game` class takes 1 parameter, the `GameSettings` object. 
+- All other class objects are initiated within the `Game` class. This structure mnimizes the risk of circular dependencies and simplifies argument passing. 
+- All `Game` methods are private, and called from within the class.
+<!-- - **Key Methods**:
+  - `_play()`: Manages a single round of guessing in the game.
+  - `evaluate()`: Concludes the game session and stores results. -->
 
 **Player Class:** This class represents the player and manages their identification and game history.
 
@@ -75,22 +79,59 @@ Handles the configuration of the game, including difficulty levels and scoring o
   - `id`: Unique identifier for each player.
   - `name`: Player's name.
 - **Methods**:
-  - `update_stats(win: bool)`: Updates the player's win/loss record after each game.
+  - `_get_name()`: Fetches user input for name selection.
+  - `check_win_loss()`: Retrieves win and loss stats for player.
 
 **Code Class:**
 `Code` is responsible for generating the secret code.
 
-- **Attributes**:
-  - `secret_code`: The current secret code the player needs to guess.
+- **Key Attributes**:
+  - `code`: The current secret code the player needs to guess.
 - **Methods**:
-  - `generate_code()`: Generates a new secret code based on the current difficulty setting.
-
+  - `generate_code()`: Generates a new secret code based on the current setting.
 
 **GameTimer Class:**
-Manages the timing of each game, providing statistics on how long the player takes to complete a game.
+Manages the timing of each game, providing data on how long the player takes to complete a game.
 
 - **Methods**:
   - `start_timer()`: Starts the timer at the beginning of the game.
   - `stop_timer()`: Stops the timer when the game ends and calculates the total time taken.
+  - `get_duration()`: Fetches the duration of playing time for the last completed game, return a string representation of seconds (precision level 2).
 
-Each of these classes works together to create a comprehensive and interactive Mastermind game experience, ensuring that each component is modular and handles its specific tasks efficiently.
+## Additional Design Elements
+
+- **Docker** 
+   - The docker container includes all the necessary dependencies and configurations simplifying the setup and installation process.
+   - Docker allows programs to run in isolated environments, reducing conflicts between running applications and between their dependencies.
+   - The Docker container can be run on any system that supports Docker without modification.
+   - I decided to use a regular dockerfile instead of docker compose to limit the prerequisites for installing the program.
+
+- **Pytest** 
+
+---
+
+## Features Attempted but Not Included
+
+During the development of this Mastermind program, I envisioned several features that aimed to enhance user interaction and provide a dynamic gaming experience. 
+
+### Web-Based Application Interface
+
+**Concept:**
+A web-based interface would have made the game accessible from browsers, enhancing accessibility and ease of use. This interface was intended to support multiple simultaneous users with minimal latency, providing a platform for broader interaction.
+
+**Implementation:**
+I experimented with creating an API with both FastAPI and Django. I choose these options for their ability to handle asynchronous operations and real-time web communication.
+
+**Reason for Exclusion:**
+Transforming the CLI-based game into a web application required a shift in the underlying architecture, including the adoption of web technologies (FastAPI or Django) with which I was less familiar. Additionally, I did not want to divert my focus to any frontend implementation. Given my timeline, prioritizing this transformation was deemed impractical.
+
+### Multiplayer Tournament Mode with Real-time Updates
+
+**Concept:**
+I planned a tournament mode where multiple players could compete simultaneously in real time. The interface would have supported displaying up to three games concurrently, allowing spectators to watch and players to compete against each other.
+
+**Implementation:**
+To support real-time interactions and manage multiple games efficiently, I began implementing multithreading for database interactions.
+
+
+---
