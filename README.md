@@ -13,7 +13,7 @@ My implementation is structured with multiple classes that manage game mechanics
 
 - **Scoring System**: Opt in or out of scoring to customize how competitive the game feels.
 
-- **Archives**: Utilizes an SQLite database to track each game's details, including scores, wins, losses, and player stats, all linked to a unique player ID.
+- **Archives**: Utilizes an SQLite database to track each game's details, including scores, wins, losses associated with individual games and players.
 
 - **Game Timer**: Monitor how long it takes to solve each code with an integrated timer.
 
@@ -22,8 +22,6 @@ My implementation is structured with multiple classes that manage game mechanics
 Docker:
 
 - Docker Engine: For installation instructions, refer to the Docker documentation: https://docs.docker.com/engine/install/
-
-<!-- - Docker Compose: For managing multi-container Docker applications. Docker Compose installation instructions can be found on the Docker website: https://docs.docker.com/compose/install/ -->
 
 
 ## Installation
@@ -100,13 +98,15 @@ Manages the timing of each game, providing data on how long the player takes to 
 
 ## Additional Design Elements
 
-- **Docker** 
-   - The docker container includes all the necessary dependencies and configurations simplifying the setup and installation process.
-   - Docker allows programs to run in isolated environments, reducing conflicts between running applications and between their dependencies.
-   - The Docker container can be run on any system that supports Docker without modification.
-   - I decided to use a regular dockerfile instead of docker compose to limit the prerequisites for installing the program.
+- **Docker Container** 
+   - Includes all the necessary dependencies and configurations simplifying the setup and installation process.
+   - Can be run on any system that supports Docker without modification.
+   - Use of a simple dockerfile in lieu of docker compose to limit the number of prerequisites needed to run the program.
+   - Allows the program to run in an isolated environment, reducing conflicts between it and other applications.
 
 - **Pytest** 
+   - Simplify unit and integrated testing.
+   - Reduce risk of regressions.
 
 ---
 
