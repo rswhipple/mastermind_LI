@@ -14,10 +14,12 @@ class Player:
     def check_win_loss(self, db: MastermindDB):
         # check total wins and losses
 
-        player_win = db.get_win(self.id)
-        print(f"Total wins for {self.name}: {player_win}")
-        player_loss = db.get_loss(self.id)
-        print(f"Total losses for {self.name}: {player_loss}")
+        win_data = db.get_win(self.id)
+        for data in win_data:
+            print(f"Total wins for {self.name}: {data[0]}")
+        loss_data = db.get_loss(self.id)
+        for data in loss_data:
+            print(f"Total losses for {self.name}: {data[0]}")
 
 
     def _get_name(self, db: MastermindDB):
