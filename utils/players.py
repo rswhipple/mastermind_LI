@@ -12,6 +12,7 @@ class Player:
     #     # option to have a human code maker
 
     def check_scores(self):
+        # check total wins and losses
         pass
 
     def _get_name(self, db: MastermindDB):
@@ -24,18 +25,17 @@ class Player:
             if id:
                 self.name = name
                 self.id = id
-                print(f"Player {self.num}'s name is {self.name}, id is {self.id}.\n")
                 break
             else:
                 q = f"{name} already exists, continue as {name} (yes/no)?\n"
                 if binary_choice(q, 'yes', 'no'):
-                    player_data = db.find_player(name)  # find player by name
+                    player_data = db.find_player(name)
                     for player in player_data:
-                        player_id, player_name = player  # unpack tuple
-                        self.id = player_id
-                        self.name = player_name
-                        print(f"Player {self.num}'s name is {player_name}, id is {player_id}.\n")
+                        self.id, self.name = player
                     break
+                
+        player_str = f"Player {self.num}'s name is {self.name}, id is {self.id}.\n"
+        print(player_str)
 
 
 class ComputerPlayer(Player):
