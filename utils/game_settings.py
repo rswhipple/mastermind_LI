@@ -7,7 +7,6 @@ class GameSettings:
         self.num_players = 1
         self.level = 0
         self._run()
-        self.num_vars = 8 # + self.level
     
     def _set_mode(self):
         question = "Do you want to play a solo game or in championship mode (solo/champ)? "

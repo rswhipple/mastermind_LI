@@ -7,7 +7,7 @@ class Code:
         self.num = 4
         self.min = 0
         self.max = 6 + level
-        self.total_vars = self.max - self.min + 1
+        self.vars = self.max - self.min + 1
         self.code = []
         self.generate_code()
         

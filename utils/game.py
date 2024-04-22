@@ -65,8 +65,8 @@ class Game:
             else:
                 print(f"Invalid guess. Your guess must be {self.inst}.\n")
     
-    def _create_hash(self, num_vars, src) -> list:
-        hash = [0] * (num_vars)
+    def _create_hash(self, src) -> list:
+        hash = [0] * (self.c.vars)
         for num in range(len(src)):
             hash[src[num]] += 1
         return hash
@@ -100,9 +100,9 @@ class Game:
             return 0
 
     def _evaluate(self, a_hash) -> bool:
-        g_hash = self._create_hash(self.c.total_vars, self.guess)
+        g_hash = self._create_hash(self.guess)
         
-        for num in range(self.c.total_vars):
+        for num in range(self.c.vars):
             self.fb[1] += min(a_hash[num], g_hash[num])
 
         for num in range(self.b_len):
@@ -122,7 +122,7 @@ class Game:
     def _play(self, settings: GameSettings):
         self._print_inst()
         game_over = False
-        a_hash = self._create_hash(self.c.total_vars, self.board)
+        a_hash = self._create_hash(self.board)
 
         if settings.score_mode: 
             self.t.start() # start timer
