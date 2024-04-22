@@ -13,7 +13,7 @@ Welcome to my Python - OOP version of the 70's game Mastermind, where the goal i
 
 ## Prerequisites
 
-Docker:
+**Docker**:
 
 - Docker Engine: For installation instructions, refer to the Docker documentation: https://docs.docker.com/engine/install/
 
