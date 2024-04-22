@@ -1,8 +1,6 @@
 # mastermind_LI
 Welcome to my Python - OOP version of the 70's game Mastermind, where the goal is to guess the secret code within a set number of attempts.
 
-My implementation is structured with multiple classes that manage game mechanics, player data, and game settings, enhanced with database support for tracking statistics.
-
 ## Features
 
 - **Game Modes**:
