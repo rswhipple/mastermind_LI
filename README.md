@@ -38,3 +38,13 @@ You need the Docker Engine:
 3. **Run the game**:
    ```bash
    python3 main.py
+
+## How to Play
+
+1. **Start the Game**: Launch the game from your terminal by running `python3 main.py`.
+2. **Select Game Mode**: Choose from standard or tournament mode.
+3. **Set Difficulty**: Select the difficulty level, each level adds an additonal slot in the secret code.
+4. **Choose to Keep Score**: Opt into scoring to add a level of competition to your game.
+5. **Enter Player Name**: Start with a new name or reuse one to keep track of your game statistics.
+4. **Guess the Code**: Enter your guesses based on feedback from previous attempts. The game will indicate how many of your guessed numbers and positions are correct. Black means the number and postion is correct, White means just the number is correct.
+5. **End of Game**: The game concludes either when you guess the code correctly or exhaust your attempts. In tournament mode, proceed through multiple games.
