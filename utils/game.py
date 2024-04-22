@@ -48,7 +48,7 @@ class Game:
         inst = (
             "Try to decipher the secret code!"
             f"\nPick {self.inst}."
-            "\nDuplicates are allowed."
+            f"\nDuplicates {self.var} are allowed."
             )
         print(f"{inst}")
 
@@ -143,11 +143,11 @@ class Game:
             self.score = self._calc_score()
 
         result = self.db.add_game(self.p[0].id, self.dur, self.score)
-        
+
         if self.win:
             self.db.add_win(self.p[0].id, result, self.cur)
         else:
             self.db.add_loss(self.p[0].id, result)
 
-        if not settings.tournament_mode:
+        if not settings.game_mode:
             self._play_again(settings)

@@ -3,7 +3,6 @@ import requests
 
 class Code:
     def __init__(self, level) -> None:
-        self.level = level
         self.num = 4
         self.min = 0
         self.max = 6 + level
