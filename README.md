@@ -9,11 +9,11 @@ My implementation is structured with multiple classes that manage game mechanics
   - **Standard Mode**: Play a single game of Mastermind.
   - **Series Mode**: Engage in a series of 5 games with a summary of results at the end.
 
-- **Difficulty Settings**: Adjust the number of variable options in the secret code to increase the game's challenge.
+- **Difficulty Settings**: Adjust the number of variables to increase the game's challenge.
 
 - **Scoring System**: Opt in or out of scoring to customize how competitive the game feels.
 
-- **Archives**: Utilizes an SQLite database to track each game's details, including scores, wins, losses associated with individual games and players.
+- **Archives**: Utilizes an SQLite database to track each game's details, including scores, wins, losses, and players.
 
 - **Game Timer**: Monitor how long it takes to solve each code with an integrated timer.
 
@@ -29,7 +29,7 @@ Docker:
 1. **Clone this repository**:
    ```bash
    git clone https://github.com/rswhipple/mastermind_LI.git
-   cd mastermind
+   cd mastermind_LI
     ```
 2. **Build the Docker Image**:
    ```bash
@@ -117,21 +117,23 @@ During the development of this Mastermind program, I envisioned several features
 ### Web-Based Application Interface
 
 **Concept:**
-A web-based interface would have made the game accessible from browsers, enhancing accessibility and ease of use. This interface was intended to support multiple simultaneous users with minimal latency, providing a platform for broader interaction.
+A web-based interface would have made the game accessible from browsers. This interface was intended to support displaying up to three games concurrently, allowing spectators to watch and players to compete against each other.
 
 **Implementation:**
-I experimented with creating an API with both FastAPI and Django. I choose these options for their ability to handle asynchronous operations and real-time web communication.
+I experimented creating an API with both FastAPI and Django. I choose these options for their ability to handle asynchronous operations, broad industry-wide adoption and real-time web communication.
 
 **Reason for Exclusion:**
-Transforming the CLI-based game into a web application required a shift in the underlying architecture, including the adoption of web technologies (FastAPI or Django) with which I was less familiar. Additionally, I did not want to divert my focus to any frontend implementation. Given my timeline, prioritizing this transformation was deemed impractical.
+Transforming the CLI-based game into a web application required a shift in the underlying architecture, including the adoption of web technologies (FastAPI or Django) with which I was less familiar. Additionally, I did not want to divert my focus to include frontend implementation. Given my timeline, prioritizing this transformation was deemed impractical.
 
-### Multiplayer Tournament Mode with Real-time Updates
+### Multithread Database Interactions
 
 **Concept:**
-I planned a tournament mode where multiple players could compete simultaneously in real time. The interface would have supported displaying up to three games concurrently, allowing spectators to watch and players to compete against each other.
+The aforementioned web-based interface, designed for multiple players to compete simultaneously in real-time, would necessitate asynchronous operations.
 
 **Implementation:**
-To support real-time interactions and manage multiple games efficiently, I began implementing multithreading for database interactions.
+I initiated the implementation of multithreaded database interactions. 
 
+**Reason for Exclusion:**
+Same as above.
 
 ---
