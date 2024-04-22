@@ -16,7 +16,7 @@ class Game:
         self.t = GameTimer()
         self.p = self._get_player(settings.num_players)
         self.var = 'digits'
-        self.rounds = 10
+        self.rounds = 5
         self.win = False
         self._reset(settings)
         if self.refresh:
@@ -100,6 +100,13 @@ class Game:
             return (abs(self.rounds - self.cur)) * (100 / self.rounds)
         else:
             return 0
+        
+    def _check_stats(self, settings: GameSettings):
+        question = "Do you want to see player stats? "
+
+        if binary_choice(question, 'yes', 'no'):
+            for num in range(settings.num_players):
+                self.p[num].check_win_loss()
 
     def _evaluate(self, a_hash) -> bool:
         g_hash = self._create_hash(self.guess)
@@ -150,4 +157,5 @@ class Game:
             self.db.add_loss(self.p[0].id, result)
 
         if not settings.game_mode:
+            self._check_stats(settings)
             self._play_again(settings)

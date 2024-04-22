@@ -10,8 +10,8 @@ class GameSettings:
         self._run()
     
     def _set_mode(self):
-        question = ("Play a solo game or a series (solo/series)? "
-                    "Series mode is 5 games in a row: "
+        question = ("Play a solo game or a series (solo/series) ? "
+                    "\nSeries mode is 5 games in a row: "
                     )
 
         if binary_choice(question, 'series', 'solo'):

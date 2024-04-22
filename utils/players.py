@@ -11,9 +11,9 @@ class Player:
     # def input_code():
     #     # option to have a human code maker
 
-    def check_scores(self):
+    def check_win_loss(self):
         # check total wins and losses
-        pass
+        print("placeholder for win/loss stats\n")
 
     def _get_name(self, db: MastermindDB):
         while True:
@@ -33,7 +33,7 @@ class Player:
                     for player in player_data:
                         self.id, self.name = player
                     break
-                
+
         player_str = f"Player {self.num}'s name is {self.name}, id is {self.id}.\n"
         print(player_str)
 
