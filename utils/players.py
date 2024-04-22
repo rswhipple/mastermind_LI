@@ -11,7 +11,16 @@ class Player:
     # def input_code():
     #     # option to have a human code maker
 
-    # def check_scores(self):
+    def check_win_loss(self, db: MastermindDB):
+        # check total wins and losses
+
+        win_data = db.get_win(self.id)
+        for data in win_data:
+            print(f"Total wins for {self.name}: {data[0]}")
+        loss_data = db.get_loss(self.id)
+        for data in loss_data:
+            print(f"Total losses for {self.name}: {data[0]}")
+
 
     def _get_name(self, db: MastermindDB):
         while True:
@@ -19,23 +28,21 @@ class Player:
             if not name.isalnum():
                 print(f"Invalid name. Alphanumeric characters only.\n")
 
-            # this conditional isn't working
             id = db.add_player(name)
             if id:
                 self.name = name
                 self.id = id
-                print(f"Player {self.num}'s name is {self.name}, id is {self.id}.\n")
                 break
             else:
                 q = f"{name} already exists, continue as {name} (yes/no)?\n"
                 if binary_choice(q, 'yes', 'no'):
-                    player_data = db.find_player(name)  # find player by name
+                    player_data = db.find_player(name)
                     for player in player_data:
-                        player_id, player_name = player  # unpack tuple
-                        self.id = player_id
-                        self.name = player_name
-                        print(f"Player {self.num}'s name is {player_name}, id is {player_id}.\n")
+                        self.id, self.name = player
                     break
+
+        player_str = f"Player {self.num}'s name is {self.name}, id is {self.id}.\n"
+        print(player_str)
 
 
 class ComputerPlayer(Player):

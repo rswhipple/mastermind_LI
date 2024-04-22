@@ -27,25 +27,33 @@ class MastermindDB:
         sql = 'INSERT INTO players(name) VALUES(?)'
         return self._execute_task(sql, (name,))
     
-    def add_game(self, player_id, start, end, dur, score):
-        sql = 'INSERT INTO games(player_id, start, end, duration, score) VALUES(?,?,?,?,?)'
-        return self._execute_task(sql, (player_id, start, end, dur, score))
+    def add_game(self, player_id, dur, score):
+        sql = 'INSERT INTO games(player_id, duration, score) VALUES(?,?,?)'
+        return self._execute_task(sql, (player_id, dur, score))
     
     def add_win(self, player_id, game_id, round):
         sql = 'INSERT INTO wins(player_id, game_id, round) VALUES(?,?,?)'
         return self._execute_task(sql, (player_id, game_id, round))
 
     def add_loss(self, player_id, game_id):
-        sql = 'INSERT INTO wins(player_id, game_id) VALUES(?,?)'
+        sql = 'INSERT INTO losses(player_id, game_id) VALUES(?,?)'
         return self._execute_task(sql, (player_id, game_id))
     
-    # def add_guess(self, game_id, guess, feedback):
-    #     sql = '''INSERT INTO guesses(game_id, guess, feedback) VALUES(?,?,?)'''
-    #     self.execute_task(sql, (game_id, guess, feedback))
+    # def add_guess(self, game_id, round, guess, feedback):
+    #     sql = '''INSERT INTO guesses(game_id, round, guess, feedback) VALUES(?,?,?,?)'''
+    #     self.execute_task(sql, (game_id, round, guess, feedback))
 
     def find_player(self, name):
         sql = '''SELECT * FROM players WHERE name = (?)'''
         return self._get_data(sql, (name,))
+    
+    def get_win(self, player_id):
+        sql = '''SELECT COUNT(*) FROM wins WHERE player_id = ?'''
+        return self._get_data(sql, (player_id,))
+    
+    def get_loss(self, player_id):
+        sql = '''SELECT COUNT(*) FROM losses WHERE player_id = ?'''
+        return self._get_data(sql, (player_id,))
 
     def _execute_task(self, sql, data=()):
         try:
@@ -54,7 +62,7 @@ class MastermindDB:
             self.conn.commit()
             return c.lastrowid
         except Error as e:
-            print(e)
+            # print(e)
             return None
     
     def _get_data(self, sql, data=()):
@@ -63,7 +71,7 @@ class MastermindDB:
             c.execute(sql, data)
             return c.fetchall()
         except Error as e:
-            print(e)
+            # print(e)
             return None
 
 
@@ -78,8 +86,6 @@ def setup_db():
     db.create_table(""" CREATE TABLE IF NOT EXISTS games (
                             id integer PRIMARY KEY,
                             player_id integer,
-                            start text,
-                            end text,
                             duration text,
                             score integer,
                             FOREIGN KEY (player_id) REFERENCES players (id)
@@ -101,8 +107,9 @@ def setup_db():
                         ); """)
     # db.create_table(""" CREATE TABLE IF NOT EXISTS guesses (
     #                         guess_id integer PRIMARY KEY,
-    #                         game_id integer NOT NULL,
-    #                         guess integer NOT NULL,
+    #                         game_id integer,
+    #                         round integer,
+    #                         guess integer,
     #                         feedback text,
     #                         FOREIGN KEY (game_id) REFERENCES games (game_id)
     #                     ); """)

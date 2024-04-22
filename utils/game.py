@@ -17,8 +17,6 @@ class Game:
         self.p = self._get_player(settings.num_players)
         self.var = 'digits'
         self.rounds = 10
-        self.win = False
-        self.score = 0
         self._reset(settings)
         if self.refresh:
             self.db.close_db()  # close db
@@ -27,6 +25,8 @@ class Game:
         self.c = Code(settings.level)
         self.board = self.c.code
         self.b_len = len(self.board)
+        self.score = 0
+        self.dur = 0
         self.cur = 1
         self.guess = []
         self.fb = [0] * 2
@@ -34,6 +34,7 @@ class Game:
             f"{self.b_len} {self.var} between {self.c.min} and {self.c.max}"
         self.keep_playing = False
         self.refresh = False
+        self.win = False
         self._play(settings)
 
     def _get_player(self, num) -> list:
@@ -47,7 +48,7 @@ class Game:
         inst = (
             "Try to decipher the secret code!"
             f"\nPick {self.inst}."
-            "\nDuplicates are allowed."
+            f"\nDuplicates {self.var} are allowed."
             )
         print(f"{inst}")
 
@@ -70,7 +71,30 @@ class Game:
         for num in range(len(src)):
             hash[src[num]] += 1
         return hash
+
+    def _print_result(self, settings):
+        if self.fb[0] == 4:
+            print(f"You won!")
+            self.win = True
+        else:
+            self.win = False
+            print("All out of guesses, sorry, you lost this one.")
+            
+        print(f"Game {self.dur}")
     
+    def _calc_score(self):
+        if self.win:
+            return (abs(self.rounds - self.cur)) * (100 / self.rounds)
+        else:
+            return 0
+        
+    def _check_stats(self, settings: GameSettings):
+        question = "Do you want to see player stats? "
+
+        if binary_choice(question, 'yes', 'no'):
+            for num in range(settings.num_players):
+                self.p[num].check_win_loss(self.db)
+
     def _play_again(self, settings):
         question = "\nDo you want to play again (yes/no)? "
 
@@ -84,20 +108,7 @@ class Game:
                 self._reset(settings)
         else:
             print("Thanks for playing!")
-
-    def _print_result(self):
-        if self.fb[0] == 4:
-            print("You won!")
-            self.win = True
-        else:
-            print("All out of guesses, sorry, you lost this one.")
-        self.score = self._calc_score()
-    
-    def _calc_score(self):
-        if self.win:
-            return (abs(self.rounds - self.cur)) * (100 / self.rounds)
-        else:
-            return 0
+            
 
     def _evaluate(self, a_hash) -> bool:
         g_hash = self._create_hash(self.guess)
@@ -133,16 +144,20 @@ class Game:
         
         if settings.score_mode:
             self.t.stop() # stop timer
+            self.dur = self.t.get_duration()
         
-        self._print_result()
-        # print(self.t.start_t, self.t.end_t, self.t.dur)
-        result = self.db.add_game(self.p[0].id, self.t.start_t, self.t.end_t, \
-                    self.t.dur, self.score)
-        # print(result)
+        self._print_result(settings)
+        
+        if settings.score_mode:
+            self.score = self._calc_score()
+
+        result = self.db.add_game(self.p[0].id, self.dur, self.score)
+
         if self.win:
             self.db.add_win(self.p[0].id, result, self.cur)
         else:
             self.db.add_loss(self.p[0].id, result)
 
-        if not settings.tournament_mode:
+        if not settings.game_mode:
+            self._check_stats(settings)
             self._play_again(settings)
