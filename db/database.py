@@ -28,7 +28,7 @@ class MastermindDB:
         return self._execute_task(sql, (name,))
     
     def add_game(self, player_id, dur, score):
-        sql = 'INSERT INTO games(player_id, duration, score) VALUES(?,?,?,?,?)'
+        sql = 'INSERT INTO games(player_id, duration, score) VALUES(?,?,?)'
         return self._execute_task(sql, (player_id, dur, score))
     
     def add_win(self, player_id, game_id, round):
@@ -39,9 +39,9 @@ class MastermindDB:
         sql = 'INSERT INTO wins(player_id, game_id) VALUES(?,?)'
         return self._execute_task(sql, (player_id, game_id))
     
-    # def add_guess(self, game_id, guess, feedback):
-    #     sql = '''INSERT INTO guesses(game_id, guess, feedback) VALUES(?,?,?)'''
-    #     self.execute_task(sql, (game_id, guess, feedback))
+    # def add_guess(self, game_id, round, guess, feedback):
+    #     sql = '''INSERT INTO guesses(game_id, round, guess, feedback) VALUES(?,?,?,?)'''
+    #     self.execute_task(sql, (game_id, round, guess, feedback))
 
     def find_player(self, name):
         sql = '''SELECT * FROM players WHERE name = (?)'''
@@ -54,7 +54,7 @@ class MastermindDB:
             self.conn.commit()
             return c.lastrowid
         except Error as e:
-            print(e)
+            # print(e)
             return None
     
     def _get_data(self, sql, data=()):
@@ -63,7 +63,7 @@ class MastermindDB:
             c.execute(sql, data)
             return c.fetchall()
         except Error as e:
-            print(e)
+            # print(e)
             return None
 
 
@@ -99,8 +99,9 @@ def setup_db():
                         ); """)
     # db.create_table(""" CREATE TABLE IF NOT EXISTS guesses (
     #                         guess_id integer PRIMARY KEY,
-    #                         game_id integer NOT NULL,
-    #                         guess integer NOT NULL,
+    #                         game_id integer,
+    #                         round integer,
+    #                         guess integer,
     #                         feedback text,
     #                         FOREIGN KEY (game_id) REFERENCES games (game_id)
     #                     ); """)
