@@ -16,7 +16,7 @@ class Game:
         self.t = GameTimer()
         self.p = self._get_player(settings.num_players)
         self.var = 'digits'
-        self.rounds = 5
+        self.rounds = 10
         self._reset(settings)
         if self.refresh:
             self.db.close_db()  # close db
@@ -71,20 +71,6 @@ class Game:
         for num in range(len(src)):
             hash[src[num]] += 1
         return hash
-    
-    def _play_again(self, settings):
-        question = "\nDo you want to play again (yes/no)? "
-
-        if binary_choice(question, 'yes', 'no'):
-            self.keep_playing = True 
-            question = "\nDo you need to change any settings (yes/no)? "
-
-            if binary_choice(question, 'yes', 'no'): 
-                self.refresh = True
-            else:
-                self._reset(settings)
-        else:
-            print("Thanks for playing!")
 
     def _print_result(self, settings):
         if self.fb[0] == 4:
@@ -108,6 +94,21 @@ class Game:
         if binary_choice(question, 'yes', 'no'):
             for num in range(settings.num_players):
                 self.p[num].check_win_loss(self.db)
+
+    def _play_again(self, settings):
+        question = "\nDo you want to play again (yes/no)? "
+
+        if binary_choice(question, 'yes', 'no'):
+            self.keep_playing = True 
+            question = "\nDo you need to change any settings (yes/no)? "
+
+            if binary_choice(question, 'yes', 'no'): 
+                self.refresh = True
+            else:
+                self._reset(settings)
+        else:
+            print("Thanks for playing!")
+            
 
     def _evaluate(self, a_hash) -> bool:
         g_hash = self._create_hash(self.guess)

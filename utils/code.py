@@ -33,6 +33,7 @@ class Code:
         random_ints = [int(char) for char in code_string]
         self.code = random_ints
 
+# In Progress
 class RandomLetterCode(Code):
     def __init__(self) -> None:
         super().__init__()
