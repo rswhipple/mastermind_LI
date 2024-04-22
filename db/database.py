@@ -1,3 +1,4 @@
+import os
 import sqlite3
 from sqlite3 import Error
 import threading
@@ -7,7 +8,9 @@ class MastermindDB:
     def __init__(self, db_file):
         self.conn = None
         try:
-            self.conn = sqlite3.connect(db_file)
+            self.conn = sqlite3.connect(db_file, check_same_thread=False)
+            self.conn.execute("PRAGMA foreign_keys = ON;")
+            self.conn.commit()
             print(f"Connected to SQLite database at {db_file}")
         except sqlite3.Error as e: 
             print(e)
@@ -22,20 +25,20 @@ class MastermindDB:
         self._execute_task(create_table_sql)
 
     def add_player(self, name):
-        sql = '''INSERT INTO players(name) VALUES(?)'''
-        self._execute_task(sql, (name,))
+        sql = 'INSERT INTO players(name) VALUES(?)'
+        return self._execute_task(sql, (name,))
     
-    def add_game(self, player_id, start_time, end_time, score):
-        sql = '''INSERT INTO games(start_time, end_time, score) VALUES(?,?,?)'''
-        self._execute_task(sql, (player_id, start_time, end_time, score))
+    def add_game(self, player_id, start, end, dur, score):
+        sql = 'INSERT INTO games(player_id, start, end, duration, score) VALUES(?,?,?,?,?)'
+        return self._execute_task(sql, (player_id, start, end, dur, score))
     
-    def add_win(self, player_id, game_id):
-        sql = '''INSERT INTO wins(player_id, game_id) VALUES(?,?)'''
-        self._execute_task(sql, (player_id, game_id))
+    def add_win(self, player_id, game_id, round):
+        sql = 'INSERT INTO wins(player_id, game_id, round) VALUES(?,?,?)'
+        return self._execute_task(sql, (player_id, game_id, round))
 
     def add_loss(self, player_id, game_id):
-        sql = '''INSERT INTO wins(player_id, game_id) VALUES(?,?)'''
-        self._execute_task(sql, (player_id, game_id))
+        sql = 'INSERT INTO wins(player_id, game_id) VALUES(?,?)'
+        return self._execute_task(sql, (player_id, game_id))
     
     # def add_guess(self, game_id, guess, feedback):
     #     sql = '''INSERT INTO guesses(game_id, guess, feedback) VALUES(?,?,?)'''
@@ -49,8 +52,11 @@ class MastermindDB:
         try:
             c = self.conn.cursor()
             c.execute(sql, data)
+            self.conn.commit()
+            return c.lastrowid
         except Error as e:
             print(e)
+            return None
     
     def _get_data(self, sql, data=()):
         try:
@@ -60,7 +66,6 @@ class MastermindDB:
         except Error as e:
             print(e)
             return None
-
 
 
 class MultiThreadDB(MastermindDB):
@@ -105,30 +110,30 @@ def setup_db():
 
     db = MastermindDB('mm_db.sqlite3')
     db.create_table(""" CREATE TABLE IF NOT EXISTS players (
-                            player_id integer PRIMARY KEY,
-                            name text
+                            id integer PRIMARY KEY,
+                            name text UNIQUE
                         ); """)
     db.create_table(""" CREATE TABLE IF NOT EXISTS games (
-                            game_id integer PRIMARY KEY,
+                            id integer PRIMARY KEY,
                             player_id integer,
                             start_time text,
                             end_time text,
                             score integer,
-                            FOREIGN KEY (player_id) REFERENCES players (player_id)
+                            FOREIGN KEY (player_id) REFERENCES players (id)
                         ); """)
     db.create_table(""" CREATE TABLE IF NOT EXISTS wins (
-                            win_id integer PRIMARY KEY,
+                            id integer PRIMARY KEY,
                             player_id integer,
                             game_id integer,
-                            FOREIGN KEY (player_id) REFERENCES players (player_id),
-                            FOREIGN KEY (game_id) REFERENCES games (game_id)
+                            FOREIGN KEY (player_id) REFERENCES players (id),
+                            FOREIGN KEY (game_id) REFERENCES games (id)
                         ); """)
     db.create_table(""" CREATE TABLE IF NOT EXISTS losses (
-                            loss_id integer PRIMARY KEY,
+                            id integer PRIMARY KEY,
                             player_id integer,
                             game_id integer,
-                            FOREIGN KEY (player_id) REFERENCES players (player_id),
-                            FOREIGN KEY (game_id) REFERENCES games (game_id)
+                            FOREIGN KEY (player_id) REFERENCES players (id),
+                            FOREIGN KEY (game_id) REFERENCES games (id)
                         ); """)
     # db.create_table(""" CREATE TABLE IF NOT EXISTS guesses (
     #                         guess_id integer PRIMARY KEY,
@@ -141,7 +146,7 @@ def setup_db():
     db.close_db()
 
 def connect_db() -> MastermindDB:
-    db_file = 'mm_db.sqlite3'
+    db_file = './mm_db.sqlite3'
     return MastermindDB(db_file)
     # if multi:
     #     return MultiThreadDB(db_file)

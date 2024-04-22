@@ -2,21 +2,22 @@ import time
 
 class GameTimer:
     def __init__(self):
-        self.start_time = None
-        self.end_time = None
-        self.duration = None
+        self.start_t = None
+        self.end_t = None
+        self.dur = None
 
     def start(self):
-        self.start_time = time.perf_counter()
+        self.start_t = time.perf_counter()
 
     def stop(self):
-        self.end_time = time.perf_counter()
-        if self.start_time is not None:
-            self.duration = self.end_time - self.start_time
+        self.end_t = time.perf_counter()
+        if self.start_t is not None:
+            self.dur = self.end_t - self.start_t
 
     def get_duration(self):
-        return self.duration if self.duration is not None else 0
+        return self.dur if self.dur is not None else 0
 
-    def __str__(self):
-        """Provide a string representation of the duration."""
-        return f"Duration: {self.get_duration():.2f} seconds."
+    # FIX
+    # def __str__(self):
+    #     """Provide a string representation of the duration."""
+    #     return f"Duration: {self.get_duration():.2f} seconds."
