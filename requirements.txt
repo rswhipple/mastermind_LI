@@ -1,24 +1,5 @@
-Requirements (lite):
-- requests
-pip install requests
-
--pytest
-`python3 -m venv pytest-en`v
-    - activate the pytest-evn:
-        `source pytest-env/bin/activate`
-        `deactivate`
-pip install pytest
-    - set up relational path 
-        export PYTHONPATH="path/to/base/directory:$PYTHONPATH"
-
-
-
-Requirements (robust):
-- python3
-- pip
-- pytest
-- requests
-- django
-- docker-compose
-
+pytest>=6.0
+requests>=2.24
+# fastapi>=0.63
+# uvicorn>=0.13
 
