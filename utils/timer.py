@@ -15,9 +15,7 @@ class GameTimer:
             self.dur = self.end_t - self.start_t
 
     def get_duration(self):
-        return self.dur if self.dur is not None else 0
+        if self.dur is None:
+            return "Duration: Not available."
+        return f"Duration: {self.dur:.2f} seconds."
 
-    # FIX
-    # def __str__(self):
-    #     """Provide a string representation of the duration."""
-    #     return f"Duration: {self.get_duration():.2f} seconds."

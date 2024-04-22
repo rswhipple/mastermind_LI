@@ -85,12 +85,16 @@ class Game:
         else:
             print("Thanks for playing!")
 
-    def _print_result(self):
+    def _print_result(self, settings):
         if self.fb[0] == 4:
-            print("You won!")
+            print(f"You won!")
+            if settings.score_mode: print(f"Game {self.t.get_duration()}")
             self.win = True
         else:
             print("All out of guesses, sorry, you lost this one.")
+            if settings.score_mode: 
+                duration = self.t.get_duration()
+                print(f"Game {duration}")
         self.score = self._calc_score()
     
     def _calc_score(self):
@@ -134,7 +138,7 @@ class Game:
         if settings.score_mode:
             self.t.stop() # stop timer
         
-        self._print_result()
+        self._print_result(settings)
         # print(self.t.start_t, self.t.end_t, self.t.dur)
         result = self.db.add_game(self.p[0].id, self.t.start_t, self.t.end_t, \
                     self.t.dur, self.score)

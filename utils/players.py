@@ -11,7 +11,8 @@ class Player:
     # def input_code():
     #     # option to have a human code maker
 
-    # def check_scores(self):
+    def check_scores(self):
+        pass
 
     def _get_name(self, db: MastermindDB):
         while True:
@@ -19,7 +20,6 @@ class Player:
             if not name.isalnum():
                 print(f"Invalid name. Alphanumeric characters only.\n")
 
-            # this conditional isn't working
             id = db.add_player(name)
             if id:
                 self.name = name

@@ -48,7 +48,7 @@ class GameSettings:
         #self._set_mode()
         self._set_level() 
         self._set_score()
-        self._set_players()
+        # self._set_players()
 
         # test by printing settings
         self._print_settings()
