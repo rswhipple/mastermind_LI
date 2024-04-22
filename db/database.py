@@ -27,9 +27,9 @@ class MastermindDB:
         sql = 'INSERT INTO players(name) VALUES(?)'
         return self._execute_task(sql, (name,))
     
-    def add_game(self, player_id, start, end, dur, score):
-        sql = 'INSERT INTO games(player_id, start, end, duration, score) VALUES(?,?,?,?,?)'
-        return self._execute_task(sql, (player_id, start, end, dur, score))
+    def add_game(self, player_id, dur, score):
+        sql = 'INSERT INTO games(player_id, duration, score) VALUES(?,?,?,?,?)'
+        return self._execute_task(sql, (player_id, dur, score))
     
     def add_win(self, player_id, game_id, round):
         sql = 'INSERT INTO wins(player_id, game_id, round) VALUES(?,?,?)'
@@ -78,8 +78,6 @@ def setup_db():
     db.create_table(""" CREATE TABLE IF NOT EXISTS games (
                             id integer PRIMARY KEY,
                             player_id integer,
-                            start text,
-                            end text,
                             duration text,
                             score integer,
                             FOREIGN KEY (player_id) REFERENCES players (id)
