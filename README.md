@@ -3,10 +3,6 @@ Welcome to my Python - OOP version of the 70's game Mastermind, where the goal i
 
 ## Features
 
-- **Game Modes**:
-  - **Standard Mode**: Play a single game of Mastermind.
-  - **Series Mode**: Engage in a series of 5 games with a summary of results at the end.
-
 - **Difficulty Settings**: Adjust the number of variables to increase the game's challenge.
 
 - **Scoring System**: Opt in or out of scoring to customize how competitive the game feels.
@@ -42,23 +38,23 @@ Docker:
 ## How to Play
 
 1. **Start the Game**: Launch the game from your terminal by running `python3 main.py`.
-2. **Select Game Mode**: Choose from solo or series mode.
-3. **Set Difficulty**: Select the difficulty level – each level adds an additonal variable option for the secret code.
-4. **Choose to Keep Score**: Opt into scoring to add a level of competition to your game.
+2. **Set Difficulty**: Select the difficulty level – each level adds an additonal variable option for the secret code.
+3. **Choose to Keep Score**: Opt into scoring to add a level of competition to your game.
 5. **Enter Player Name**: Start with a new name or reuse a past name to keep track of game statistics.
 4. **Guess the Code**: Enter your guesses based on feedback from previous attempts. The game will indicate how many of your guess variables and positions are correct. Black indicates that both the variable and postion are correct, White means you have a correct variable in the wrong position.
 5. **End of Game**: The game concludes either when you guess the code correctly or exhaust your attempts. 
+6. **See your Stats**: Choose to see your player's history of wins and losses.
 
 ## Class Overview
 
 **GameSettings Class:** 
 Handles the configuration of the game.
 - **Attributes**:
-  - `series_mode`: Boolean indicating whether playing individual games or a series.
-  - `multi_mode`: Boolean indicating whether playing with multiple players. *Not yet implemented*
   - `score_mode`: Boolean indicating if scoring should be tracked.
-  - `num_players`: Int tracking the number of players. *Only used with multi-player*
+  - `num_players`: Int tracking the number of players. 
   - `level`: Int indicating the difficulty level. *Current level options are 1 to 3*
+  - `series_mode`: Boolean indicating whether playing individual games or a series. *Not yet implemented*
+  - `multi_mode`: Boolean indicating whether playing with multiple players. *Not yet implemented*
 
 **Game Class:** 
 Serves as the central engine managing all gameplay. 
@@ -94,16 +90,24 @@ Manages the timing of each game, providing data on how long the player takes to 
 ## Additional Design Elements
 
 - **Docker Container** 
-   - Includes all the necessary dependencies and configurations simplifying the setup and installation process.
-   - Can be run on any system that supports Docker without modification.
-   - Use of a simple dockerfile in lieu of docker compose to limit the number of prerequisites needed to run the program.
-   - Allows the program to run in an isolated environment, reducing conflicts between it and other applications.
+  - Includes all the necessary dependencies and configurations simplifying the setup and installation process.
+  - Can be run on any system that supports Docker without modification.
+  - Use of a simple dockerfile in lieu of docker compose to limit the number of prerequisites needed to run the program.
+  - Allows the program to run in an isolated environment, reducing conflicts between it and other applications.
 
 - **Pytest** 
-   - Simplify unit and integrated testing.
-   - Reduce risk of regressions.
+  - Simplify unit and integrated testing.
+  - Reduce risk of regressions.
 
 ---
+
+## Features Partially Implemented
+- **Game Modes**:
+  - **Standard Mode**: Play a single game of Mastermind.
+  - **Series Mode**: Engage in a series of 5 games with a summary of results at the end.
+- **Variable Options**:
+  - **Numeric Mode**: Play with a random selection of numbers in the specified range.
+  - **Alpha Mode**: Play with a random selection of characters in a specified range
 
 ## Features Attempted but Not Included
 
@@ -115,7 +119,7 @@ During the development of this Mastermind program, I envisioned an ambitious fea
 A web-based interface would have made the game accessible from browsers. This interface was intended to support displaying up to three games concurrently, allowing spectators to watch and players to compete against each other.
 
 **Implementation:**
-I experimented creating APIs with both FastAPI and Django. I choose these options for their ability to handle asynchronous operations, broad industry-wide adoption and real-time web communication. I also initiated the implementation of multithreaded database interactions.
+I experimented creating APIs with both FastAPI and Django. I chose these options for their ability to handle asynchronous operations, broad industry-wide adoption and real-time web communication. I also initiated the implementation of multithreaded database interactions.
 
 **Reason for Exclusion:**
 Transforming the CLI-based game into a web application required a shift in the underlying architecture, including the adoption of web technologies (FastAPI or Django) with which I was less familiar. Additionally, I did not want to divert my focus to include frontend implementation. Given my timeline, prioritizing this transformation was impractical.
