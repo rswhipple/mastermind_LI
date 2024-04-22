@@ -2,7 +2,8 @@ from db import *
 from .helper import binary_choice
 
 class Player:
-    def __init__(self, db: MastermindDB) -> None:
+    def __init__(self, db: MastermindDB, i) -> None:
+        self.num = i + 1
         self.name = None
         self.id = None
         self._get_name(db)
@@ -14,7 +15,7 @@ class Player:
 
     def _get_name(self, db: MastermindDB):
         while True:
-            name = input("Choose Player Name (alphanumeric): ").strip()
+            name = input(f"Choose Player {self.num} Name (alphanumeric): ").strip()
             if not name.isalnum():
                 print(f"Invalid name. Alphanumeric characters only.\n")
 
@@ -23,7 +24,7 @@ class Player:
             if id:
                 self.name = name
                 self.id = id
-                print(f"ID: {self.id}, Name: {self.name}")
+                print(f"Player {self.num}'s name is {self.name}, id is {self.id}.\n")
                 break
             else:
                 q = f"{name} already exists, continue as {name} (yes/no)?\n"
@@ -33,7 +34,7 @@ class Player:
                         player_id, player_name = player  # unpack tuple
                         self.id = player_id
                         self.name = player_name
-                        print(f"ID: {player_id}, Name: {player_name}")
+                        print(f"Player {self.num}'s name is {player_name}, id is {player_id}.\n")
                     break
 
 

@@ -4,9 +4,9 @@ import requests
 class Code:
     def __init__(self, level) -> None:
         self.level = level
-        self.num = 4 + level
+        self.num = 4
         self.min = 0
-        self.max = 7 + level
+        self.max = 6 + level
         self.total_vars = self.max - self.min + 1
         self.code = []
         self.generate_code()

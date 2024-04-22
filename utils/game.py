@@ -5,7 +5,7 @@ from .code import Code
 from .timer import GameTimer
 from .players import Player
 from .helper import binary_choice
-from db import connect_db
+from db import *
 
 class Game:
     score = None
@@ -17,11 +17,11 @@ class Game:
         self.p = self._get_player(settings.num_players)
         self.var = 'digits'
         self.rounds = 10
+        self.win = False
         self.score = 0
         self._reset(settings)
-        # add game info to db here
-        db.add_game(self.p[0].id, self.t.start_t, self.t.end_t, \
-                    self.t.dur, self.score)
+        if self.refresh:
+            self.db.close_db()  # close db
     
     def _reset(self, settings: GameSettings):
         self.c = Code(settings.level)
@@ -33,21 +33,19 @@ class Game:
         self.inst = \
             f"{self.b_len} {self.var} between {self.c.min} and {self.c.max}"
         self.keep_playing = False
+        self.refresh = False
         self._play(settings)
 
     def _get_player(self, num) -> list:
         players = []
         for i in range(num):
-            temp = Player(self.db)
+            temp = Player(self.db, i)
             players.append(temp)
-        # testing
-        # for player in players:
-        #     print(player.name, player.id)
         return players
     
     def _print_inst(self):
         inst = (
-            "\nTry to decipher the secret code!"
+            "Try to decipher the secret code!"
             f"\nPick {self.inst}."
             "\nDuplicates are allowed."
             )
@@ -73,31 +71,34 @@ class Game:
             hash[src[num]] += 1
         return hash
     
-    def _play_again(self, settings: GameSettings):
+    def _play_again(self, settings):
         question = "\nDo you want to play again (yes/no)? "
 
         if binary_choice(question, 'yes', 'no'):
+            self.keep_playing = True 
             question = "\nDo you need to change any settings (yes/no)? "
 
             if binary_choice(question, 'yes', 'no'): 
-                self.db.close_db()  # close db
-                self.keep_playing = True # return to main
-            else: 
-                self._reset(settings) # restarts _play() 
+                self.refresh = True
+            else:
+                self._reset(settings)
         else:
-            self.db.close_db()  # close db
             print("Thanks for playing!")
 
     def _print_result(self):
         if self.fb[0] == 4:
             print("You won!")
+            self.win = True
         else:
             print("All out of guesses, sorry, you lost this one.")
         self.score = self._calc_score()
     
     def _calc_score(self):
-        return (self.rounds - self.cur) * (100 / self.rounds)
-    
+        if self.win:
+            return (abs(self.rounds - self.cur)) * (100 / self.rounds)
+        else:
+            return 0
+
     def _evaluate(self, a_hash) -> bool:
         g_hash = self._create_hash(self.c.total_vars, self.guess)
         
@@ -117,6 +118,7 @@ class Game:
         self._reset_guess()
         return False
 
+
     def _play(self, settings: GameSettings):
         self._print_inst()
         game_over = False
@@ -133,6 +135,14 @@ class Game:
             self.t.stop() # stop timer
         
         self._print_result()
+        # print(self.t.start_t, self.t.end_t, self.t.dur)
+        result = self.db.add_game(self.p[0].id, self.t.start_t, self.t.end_t, \
+                    self.t.dur, self.score)
+        # print(result)
+        if self.win:
+            self.db.add_win(self.p[0].id, result, self.cur)
+        else:
+            self.db.add_loss(self.p[0].id, result)
 
         if not settings.tournament_mode:
             self._play_again(settings)

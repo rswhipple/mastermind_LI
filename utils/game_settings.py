@@ -9,17 +9,6 @@ class GameSettings:
         self._run()
         self.num_vars = 8 # + self.level
     
-    # def binary_choice(self, question, a, b) -> bool:
-    #     while True:
-    #         answer = input(f"{question}").strip().lower()
-
-    #         if answer == a:
-    #             return True
-    #         elif answer == b:
-    #             return False
-    #         else:
-    #             print(f"Please enter either '{a}' or '{b}'.")
-
     def _set_mode(self):
         question = "Do you want to play a solo game or in championship mode (solo/champ)? "
 
@@ -39,7 +28,7 @@ class GameSettings:
             self.num_players = 2
 
     def _set_level(self):
-        question = "Choose your challenge level! Level 1, 2 or 3"
+        question = "\nChoose your challenge level! Level 1, 2 or 3: "
 
         while True:
             answer = int(input(f"{question}").strip())
@@ -48,15 +37,18 @@ class GameSettings:
                 break
 
     def _print_settings(self):
-        print(f"\ntournament_mode = {self.tournament_mode}")
-        print(f"score_mode = {self.score_mode}")
-        print(f"num_players = {self.num_players}")
-        print(f"level = {self.level}")
+        print(
+            "\nGame Settings:"
+            f"\ntournament_mode = {self.tournament_mode}"
+            f"\nscore_mode = {self.score_mode}"
+            f"\nnum_players = {self.num_players}"
+            f"\nlevel = {self.level}\n"
+            )
 
     def _run(self):
         #self._set_mode()
-        #self._set_level() 
-        #self._set_score()
+        self._set_level() 
+        self._set_score()
         self._set_players()
 
         # test by printing settings
