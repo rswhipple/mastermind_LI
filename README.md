@@ -1,5 +1,5 @@
 # mastermind_LI
-Welcome to my Python - OOP version of the 70's game Mastermind, where the goal is to guess the secret code within a set number of attempts.
+Welcome to my Python, object oriented version of the 70's game Mastermind, where the goal is to guess the secret code within a set number of attempts.
 
 ## Features
 
@@ -91,9 +91,7 @@ Manages the timing of each game, providing data on how long the player takes to 
 
 - **Docker Container** 
   - Includes all the necessary dependencies and configurations simplifying the setup and installation process.
-  - Can be run on any system that supports Docker without modification.
   - Use of a simple dockerfile in lieu of docker compose to limit the number of prerequisites needed to run the program.
-  - Allows the program to run in an isolated environment, reducing conflicts between it and other applications.
 
 - **Pytest** 
   - Simplify unit and integration testing.
