@@ -127,4 +127,17 @@ I experimented in creating APIs with both FastAPI and Django - these options wer
 **Reason for Exclusion:**
 Transforming the CLI-based game into a web application required a shift in the underlying architecture, including the adoption of web technologies (FastAPI or Django) with which I was less familiar. Additionally, I did not want to divert my focus to include frontend implementation. Given my timeline, prioritizing this transformation was impractical.
 
+## Future Updates
+- **Complete Outstanding Features:**
+  - Finish adding series mode
+  - Finish adding alpha variable option
+  - Add additional scoring logic:
+    - include bonus time related bonus
+    - add logging
+- **Next Step Features:**
+  - Add multiplayer
+    - multiple players can solve a code together
+    - take turns as code maker and code breaker
+  - Add a hint/suggestion function
+
 ---
