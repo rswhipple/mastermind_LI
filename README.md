@@ -89,6 +89,9 @@ Manages the timing of each game, providing data on how long the player takes to 
 
 ## Additional Design Elements
 
+- **File Structure + Naming Conventions** 
+  - The root directory contains the README, Dockerfile, requirements and main.py file, in addition to directories for the python class files ('utils'), database ('db'), pytest environment ('pytest-env'), and pytest tests ('tests').
+  - Class files are named after the classes.
 - **Docker Container** 
   - Includes all the necessary dependencies and configurations simplifying the setup and installation process.
   - Use of a simple dockerfile in lieu of docker compose to limit the number of prerequisites needed to run the program.
