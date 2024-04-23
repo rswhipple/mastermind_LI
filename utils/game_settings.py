@@ -44,7 +44,7 @@ class GameSettings:
     def _print_settings(self):
         print(
             "\nGame Settings:"
-            f"\ngame_mode = {self.game_mode}"
+            f"\ngame_mode = {self.series_mode}"
             f"\nscore_mode = {self.score_mode}"
             f"\nnum_players = {self.num_players}"
             f"\nlevel = {self.level}\n"
