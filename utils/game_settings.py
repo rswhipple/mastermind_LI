@@ -18,13 +18,18 @@ class GameSettings:
             self.series_mode = True
     
     def _set_players(self):
-        question = "How many players?\n Enter a number between 1 and 5: "
+        question = "How many players?\n Enter a number between 1 and 3: "
         
         while True:
-            answer = int(input(f"{question}").strip())
-            if answer <= 5 and answer > 0:
-                self.num_players = answer
-                break
+            try:
+                answer = int(input(f"{question}").strip())
+                if answer <= 3 and answer > 0:
+                    self.num_players = answer
+                    break
+                else: 
+                    print("Please enter a number between 1 and 3")
+            except ValueError:
+                print("Invalid input! Please enter a numeric value.")
 
     def _set_score(self):
         question = "Do you want to keep score (yes/no)? "
@@ -36,10 +41,15 @@ class GameSettings:
         question = "\nChoose your challenge level! Level 1, 2 or 3: "
 
         while True:
-            answer = int(input(f"{question}").strip())
-            if answer <= 3 and answer > 0:
-                self.level = answer
-                break
+            try:
+                answer = int(input(f"{question}").strip())
+                if answer <= 3 and answer > 0:
+                    self.level = answer
+                    break
+                else: 
+                    print("Make sure to enter a number between 1 and 3")
+            except ValueError:
+                print("Invalid input! Please enter a numeric value.")
 
     def _print_settings(self):
         print(
