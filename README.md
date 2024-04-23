@@ -23,6 +23,8 @@ Welcome to my Python, object oriented version of the 70's game Mastermind, where
 1. **Clone this repository**:
    ```bash
    git clone https://github.com/rswhipple/mastermind_LI.git
+   ```
+   ```
    cd mastermind_LI
     ```
 2. **Build the Docker Image**:
