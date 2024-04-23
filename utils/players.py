@@ -1,3 +1,4 @@
+# utils/player.py
 from db import *
 from .helper import binary_choice
 
@@ -45,6 +46,7 @@ class Player:
         print(player_str)
 
 
+# In Progress
 class ComputerPlayer(Player):
     def __init__(self) -> None:
         super().__init__()

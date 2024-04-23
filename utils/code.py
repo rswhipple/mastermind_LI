@@ -24,7 +24,7 @@ class Code:
 
         try:
             response = requests.get(self.base_url, params=params)
-            response.raise_for_status()  # Raises an HTTPError for bad responses
+            response.raise_for_status() 
         except requests.RequestException as e:
             print(f"Failed to generate code: {e}")
             return None
@@ -39,7 +39,7 @@ class RandomLetterCode(Code):
         super().__init__()
         self.base_url = "https://www.random.org/strings/"
 
-    # change to letters
+    # TODO: change to letters
     # def generate_code(self):
     #     params = {
     #         'num': self.num,

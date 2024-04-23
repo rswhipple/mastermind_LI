@@ -1,3 +1,4 @@
+# utils/game_settings.py
 from .helper import binary_choice
 
 class GameSettings:

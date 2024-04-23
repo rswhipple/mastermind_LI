@@ -1,4 +1,5 @@
-# helper functions for multiple utils classes
+# utils/helper.py
+
 def binary_choice(question, a, b) -> bool:
         while True:
             answer = input(f"{question}").strip().lower()
