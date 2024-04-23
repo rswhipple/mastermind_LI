@@ -14,7 +14,7 @@ class Game:
         self.db = db
         self.t = GameTimer()
         self.p = self._get_player(settings.num_players)
-        self.var = 'digits'
+        self.var = 'digit'
         self.rounds = 10
         self._reset(settings)
         if self.refresh:
@@ -30,7 +30,7 @@ class Game:
         self.guess = []
         self.fb = [0] * 2
         self.inst = \
-            f"{self.b_len} {self.var} between {self.c.min} and {self.c.max}"
+            f"{self.b_len} {self.var}s between {self.c.min} and {self.c.max}"
         self.keep_playing = False
         self.refresh = False
         self.win = False
@@ -45,9 +45,15 @@ class Game:
     
     def _print_inst(self):
         inst = (
-            "Try to decipher the secret code!"
-            f"\nPick {self.inst}."
-            f"\nDuplicates {self.var} are allowed."
+            "Try to decipher the secret code!\n"
+            "\nHOW TO PLAY:"
+            f"\n\tPick {self.inst}."
+            "\n\tEnter your guesses based on feedback from previous attempts."
+            f"\n\tThe game will indicate how many {self.var}s are correct."
+            f"\n\n\tBLACK indicates that both the {self.var} and position are correct. "
+            f"\n\tWHITE means you have a correct {self.var} in the wrong position."
+            f"\n\n\tYou have {self.rounds} chances to guess the code."
+            f"\n\tDuplicate {self.var}s are allowed.\n"
             )
         print(f"{inst}")
 
