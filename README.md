@@ -111,7 +111,7 @@ Manages the timing of each game, providing data on how long the player takes to 
 
 ## Features Attempted but Not Included
 
-During the development of this Mastermind program, I envisioned an ambitious feature that aimed to enhance user interaction and provide a dynamic gaming experience. Ultimately, I decided that I did not have the time to complete the feature; however, I did explore several technologies and concepts in the process:
+During the development of this Mastermind program, I envisioned an ambitious feature designed to enhance user interaction, provide a dynamic gaming experience, and showcase my ability to manage concepts such as multi-threading and concurrency. Ultimately, I decided that I did not have time to complete the feature; however, I did explore several technologies and concepts in the process:
 
 ### Web-Based Application Interface
 
@@ -119,7 +119,7 @@ During the development of this Mastermind program, I envisioned an ambitious fea
 A web-based interface would have made the game accessible from browsers. This interface was intended to support displaying up to three games concurrently, allowing spectators to watch and players to compete against each other.
 
 **Implementation:**
-I experimented creating APIs with both FastAPI and Django. I chose these options for their ability to handle asynchronous operations, broad industry-wide adoption and real-time web communication. I also initiated the implementation of multithreaded database interactions.
+I experimented in creating APIs with both FastAPI and Django - these options were chosen for their ability to handle asynchronous operations and real-time web communication, as well as their broad, industry-wide adoption. I also initiated the implementation of multithreaded database interactions.
 
 **Reason for Exclusion:**
 Transforming the CLI-based game into a web application required a shift in the underlying architecture, including the adoption of web technologies (FastAPI or Django) with which I was less familiar. Additionally, I did not want to divert my focus to include frontend implementation. Given my timeline, prioritizing this transformation was impractical.
