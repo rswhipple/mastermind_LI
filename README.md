@@ -38,10 +38,10 @@ Welcome to my Python - OOP version of the 70's game Mastermind, where the goal i
 ## How to Play
 
 1. **Start the Game**: Launch the game from your terminal by running `python3 main.py`.
-2. **Set Difficulty**: Select the difficulty level – each level adds an additonal variable option for the secret code.
+2. **Set Difficulty**: Select the difficulty level – each level adds an additional variable option for the secret code.
 3. **Choose to Keep Score**: Opt into scoring to add a level of competition to your game.
 5. **Enter Player Name**: Start with a new name or reuse a past name to keep track of game statistics.
-4. **Guess the Code**: Enter your guesses based on feedback from previous attempts. The game will indicate how many of your guess variables and positions are correct. Black indicates that both the variable and postion are correct, White means you have a correct variable in the wrong position.
+4. **Guess the Code**: Enter your guesses based on feedback from previous attempts. The game will indicate how many of your guess variables and positions are correct. Black indicates that both the variable and position are correct, White means you have a correct variable in the wrong position.
 5. **End of Game**: The game concludes either when you guess the code correctly or exhaust your attempts. 
 6. **See your Stats**: Choose to see your player's history of wins and losses.
 
@@ -59,7 +59,7 @@ Handles the configuration of the game.
 **Game Class:** 
 Serves as the central engine managing all gameplay. 
 - The `Game` class takes 1 parameter, the `GameSettings` object. 
-- All other class objects are initiated within the `Game` class. This structure mnimizes the risk of circular dependencies and simplifies argument passing. 
+- All other class objects are initiated within the `Game` class. This structure minimizes the risk of circular dependencies and simplifies argument passing. 
 - All `Game` methods are private, and called from within the class.
 
 **Player Class:** This class represents the player and manages their identification and game history.
@@ -77,7 +77,7 @@ Serves as the central engine managing all gameplay.
 - **Key Attributes**:
   - `code`: The current secret code the player needs to guess.
 - **Methods**:
-  - `generate_code()`: Generates a new secret code based on the current setting.
+  - `generate_code()`: Generates a new secret code based on the current settings.
 
 **GameTimer Class:**
 Manages the timing of each game, providing data on how long the player takes to complete a game.
@@ -96,7 +96,7 @@ Manages the timing of each game, providing data on how long the player takes to 
   - Allows the program to run in an isolated environment, reducing conflicts between it and other applications.
 
 - **Pytest** 
-  - Simplify unit and integrated testing.
+  - Simplify unit and integration testing.
   - Reduce risk of regressions.
 
 ---
