@@ -158,6 +158,6 @@ class Game:
         else:
             self.db.add_loss(self.p[0].id, result)
 
-        if not settings.game_mode:
+        if not settings.series_mode:
             self._check_stats(settings)
             self._play_again(settings)
