@@ -39,7 +39,7 @@ Welcome to my Python, object oriented version of the 70's game Mastermind, where
 
 ## How to Play
 
-1. **Start the Game**: Launch the game within the  terminal by running `docker run -it python-mastermind-cli:1.0` or `python3 main.py`.
+1. **Start the Game**: Launch the game within the  terminal by running `docker run -it python-mastermind-cli:1.0`.
 2. **Set Difficulty**: Select the difficulty level – each level adds an additional variable option for the secret code.
 3. **Choose to Keep Score**: Opt into scoring to add a level of competition to your game.
 5. **Enter Player Name**: Start with a new name or reuse a past name to keep track of game statistics.
