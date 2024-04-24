@@ -61,7 +61,7 @@ Handles the configuration of the game.
 **Game Class:** 
 Serves as the central engine managing all gameplay. 
 - The `Game` class takes 1 parameter, the `GameSettings` object. 
-- All other class objects are initiated within the `Game` class. This structure minimizes the risk of circular dependencies and simplifies argument passing. 
+- All other class objects (except for `GameSettings`) are initiated within the `Game` class. This structure minimizes the risk of circular dependencies and simplifies argument passing. 
 - All `Game` methods are private, and called from within the class.
 
 **Player Class:** This class represents the player and manages their identification and game history.
@@ -88,6 +88,18 @@ Manages the timing of each game, providing data on how long the player takes to 
   - `start_timer()`: Starts the timer at the beginning of the game.
   - `stop_timer()`: Stops the timer when the game ends and calculates the total time taken.
   - `get_duration()`: Fetches the duration of playing time for the last completed game, returns a string representation in seconds (precision level 2).
+
+**MastermindDB Class:**
+Includes most sqlite database functionality.
+
+- **Methods**:
+  - `add_player()`: Inserts a new player into the `players` table, checking that the name is a unique entry.
+  - `find_player()`: Retrieves the player id from the `players` table for a given player name.
+  - `add_game()`: Inserts a completed game into the `games` table.
+  - `add_win()`: Records a win in the `wins` table, with foreign key references to the player and game ids.
+  - `add_loss()`: Records a loss in the `losses` table, with foreign key references to the player and game ids.
+  - `get_win()`: Retrieves the number of total wins from the `wins` table, for a given player id.
+  - `get_loss()`: Retrieves the number of total losses from the `losses` table, for a given player id.
 
 ## Additional Design Elements
 
