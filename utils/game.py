@@ -23,6 +23,7 @@ class Game:
     def _reset(self, settings: GameSettings):
         self.c = Code(settings.level)
         self.board = self.c.code
+        print(f"the secret code is {self.board}\n")
         self.b_len = len(self.board)
         self.score = 0
         self.dur = 0
@@ -34,6 +35,7 @@ class Game:
         self.keep_playing = False
         self.refresh = False
         self.win = False
+        self.last_player = None
         self._play(settings)
 
     def _get_player(self, num) -> list:
@@ -79,7 +81,7 @@ class Game:
 
     def _print_result(self, settings):
         if self.fb[0] == 4:
-            print(f"You won!")
+            print(f"{self.last_player.name} won!")
             self.win = True
         else:
             self.win = False
@@ -116,22 +118,27 @@ class Game:
             
 
     def _evaluate(self, a_hash) -> bool:
-        g_hash = self._create_hash(self.guess)
+        for player in self.p:
+            print(f"It's Player {player.name}'s turn!")
+            self._get_guess()
+            g_hash = self._create_hash(self.guess)
+            
+            for num in range(self.c.vars):
+                self.fb[1] += min(a_hash[num], g_hash[num])
+
+            for num in range(self.b_len):
+                if self.board[num] == self.guess[num]: self.fb[0] += 1
+
+            self.fb[1] = self.fb[1] - self.fb[0]
+            print(f"\tblack / white = {self.fb}\n")
+
+            if self.cur == self.rounds + 1 or self.fb[0] == 4:
+                self.last_player = player
+                return True
         
-        for num in range(self.c.vars):
-            self.fb[1] += min(a_hash[num], g_hash[num])
-
-        for num in range(self.b_len):
-            if self.board[num] == self.guess[num]: self.fb[0] += 1
-
-        self.fb[1] = self.fb[1] - self.fb[0]
-        print(f"\tblack / white = {self.fb}\n")
-
+            self._reset_guess()
+            
         self.cur += 1
-        if self.cur == self.rounds + 1 or self.fb[0] == 4:
-            return True
-        
-        self._reset_guess()
         return False
 
 
@@ -144,7 +151,6 @@ class Game:
             self.t.start() # start timer
 
         while not game_over:
-            self._get_guess()
             game_over = self._evaluate(a_hash)    
         
         if settings.score_mode:
