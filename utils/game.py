@@ -96,7 +96,7 @@ class Game:
             return 0
         
     def _check_stats(self, settings: GameSettings):
-        question = "Do you want to see player stats? "
+        question = "Do you want to see player stats (yes/no)? "
 
         if binary_choice(question, 'yes', 'no'):
             for num in range(settings.num_players):
