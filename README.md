@@ -1,16 +1,7 @@
 # mastermind_LI
 Welcome to my Python, object oriented version of the 70's game Mastermind, where the goal is to guess the secret code within a set number of attempts.
 
-## Features
-
-- **Difficulty Settings**: Adjust the number of variables to increase the game's challenge.
-
-- **Scoring System**: Opt in or out of scoring to customize how competitive the game feels.
-
-- **Archives**: Utilizes an SQLite database to track each game's details, including scores, wins, losses, and players.
-
-- **Game Timer**: Monitor how long it takes to solve each code with an integrated timer.
-
+# Game Setup and Play
 ## Prerequisites
 
 **Docker**:
@@ -19,6 +10,8 @@ Welcome to my Python, object oriented version of the 70's game Mastermind, where
 
 
 ## Installation
+
+The following instructions were tested on a Mac 6-Core Intel Core i7 running macOS Sonoma 14.4.1.
 
 1. **Clone this repository**:
    ```bash
@@ -41,14 +34,45 @@ Welcome to my Python, object oriented version of the 70's game Mastermind, where
 
 1. **Start the Game**: Launch the game within the  terminal by running `docker run -it python-mastermind-cli:1.0`.
 2. **Set Difficulty**: Select the difficulty level – each level adds an additional variable option for the secret code.
-3. **Choose to Keep Score**: Opt into scoring to add a level of competition to your game.
-5. **Enter Player Name**: Start with a new name or reuse a past name to keep track of game statistics.
-4. **Guess the Code**: Enter your guesses based on feedback from previous attempts. The game will indicate how many of your guess variables and positions are correct. Black indicates that both the variable and position are correct, White means you have a correct variable in the wrong position.
-5. **End of Game**: The game concludes either when you guess the code correctly or exhaust your attempts. 
-6. **See your Stats**: Choose to see your player's history of wins and losses.
+3. **Choose Timer**: Choose whether or not you want to keep track of how long it takes to complete each game.
+3. **Choose How Many Players**: Play with 1 or 2 players. 2 player version of the game will alternate turns between players to guess the secret code.
+4. **Enter Player Name(s)**: Start with a new name or reuse a past name to keep track of game statistics.
+5. **Guess the Code**: Enter your guesses based on feedback from previous attempts. The game will indicate how many of your guess variables and positions are correct. Black indicates that both the variable and position are correct, White means you have a correct variable in the wrong position.
+6. **End of Game**: The game concludes either when you guess the code correctly or exhaust your attempts. 
+7. **See your Stats**: Choose to see your player's history of wins and losses.
 
-## Class Overview
+# Development Notes
 
+## Extension Features
+
+Additions implemented beyond the minimal viable product:
+
+1. **Error Handling**: Robust error handling for player input edge cases.
+2. **Parameter Customization**: Adjust the difficulty setting to change the number of variables from which the secret code is selected and increase the game's challenge.
+4. **Database and Game Tracking**: Utilizes an SQLite database to track each game's details, including wins, losses, and players.
+5. **Game Timer**: Monitor how long it takes to solve each code with an integrated timer.
+6. **Unit Tests**  
+    - Simplify unit and integration testing.
+    - Reduce risk of regressions.
+7. **Docker Container**
+    - Includes all the necessary dependencies and configurations simplifying the setup and installation process.
+    - Use of a simple dockerfile in lieu of docker compose to limit the number of prerequisites needed to run the program.
+
+## Incomplete Extension Features
+1. **Scoring System**: Calculate player's score based on how many rounds they needed to guess the correct answer, game difficulty and overall time.
+2. **Game Modes**:
+    - **Standard Mode**: Play a single game of Mastermind.
+    - **Series Mode**: Engage in a series of 5 games with a summary of results at the end.
+3. **Variable Options**:
+    - **Numeric Mode**: Play with a random selection of numbers in the specified range.
+    - **Alpha Mode**: Play with a random selection of characters in a specified range
+
+## Design Elements
+### File Structure + Naming Conventions
+  - The root directory contains the README, Dockerfile, requirements and main.py file, in addition to directories for the python class files ('utils'), database ('db'), pytest environment ('pytest-env'), and pytest tests ('tests').
+  - Class files are named after the classes.
+
+### Class Overview
 **GameSettings Class:** 
 Handles the configuration of the game.
 - **Attributes**:
@@ -101,28 +125,7 @@ Includes most sqlite database functionality.
   - `get_win()`: Retrieves the number of total wins from the `wins` table, for a given player id.
   - `get_loss()`: Retrieves the number of total losses from the `losses` table, for a given player id.
 
-## Additional Design Elements
-
-- **File Structure + Naming Conventions** 
-  - The root directory contains the README, Dockerfile, requirements and main.py file, in addition to directories for the python class files ('utils'), database ('db'), pytest environment ('pytest-env'), and pytest tests ('tests').
-  - Class files are named after the classes.
-- **Docker Container** 
-  - Includes all the necessary dependencies and configurations simplifying the setup and installation process.
-  - Use of a simple dockerfile in lieu of docker compose to limit the number of prerequisites needed to run the program.
-
-- **Pytest** 
-  - Simplify unit and integration testing.
-  - Reduce risk of regressions.
-
 ---
-
-## Features Partially Implemented
-- **Game Modes**:
-  - **Standard Mode**: Play a single game of Mastermind.
-  - **Series Mode**: Engage in a series of 5 games with a summary of results at the end.
-- **Variable Options**:
-  - **Numeric Mode**: Play with a random selection of numbers in the specified range.
-  - **Alpha Mode**: Play with a random selection of characters in a specified range
 
 ## Features Attempted but Not Included
 
