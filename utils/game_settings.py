@@ -37,7 +37,7 @@ class GameSettings:
                 print("Invalid input! Please enter a numeric value.")
 
     def _set_score(self):
-        question = "Do you want to keep score (yes/no)? "
+        question = "Do you want to time your game (yes/no)? "
 
         if binary_choice(question, 'yes', 'no'):
             self.score_mode = True     
@@ -61,7 +61,7 @@ class GameSettings:
             "\nGame Settings:"
             # f"\ngame_mode = {self.series_mode}"
             # f"\nmulti_mode = {self.multi_mode}"
-            # f"\nscore_mode = {self.score_mode}"
+            f"\ntimer_mode = {self.score_mode}"
             f"\nnum_players = {self.num_players}"
             f"\nlevel = {self.level}\n"
             )
@@ -69,7 +69,7 @@ class GameSettings:
     def _run(self):
         # self._set_mode()
         self._set_level() 
-        # self._set_score()
+        self._set_score()
         self._set_players()
 
         # TEST: print settings
