@@ -34,7 +34,7 @@ The following instructions were tested on a Mac 6-Core Intel Core i7 running mac
 
 1. **Start the Game**: Launch the game within the  terminal by running `docker run -it python-mastermind-cli:1.0`.
 2. **Set Difficulty**: Select the difficulty level – each level adds an additional variable option for the secret code.
-3. **Choose Timer**: Choose whether or not you want to keep track of how long it takes to complete each game.
+3. **Choose Timer**: Choose to keep track of how long it takes to complete each game.
 3. **Choose How Many Players**: Play with 1 or 2 players. 2 player version of the game will alternate turns between players to guess the secret code.
 4. **Enter Player Name(s)**: Start with a new name or reuse a past name to keep track of game statistics.
 5. **Guess the Code**: Enter your guesses based on feedback from previous attempts. The game will indicate how many of your guess variables and positions are correct. Black indicates that both the variable and position are correct, White means you have a correct variable in the wrong position.
@@ -52,7 +52,7 @@ Additions implemented beyond the minimal viable product:
 4. **Database and Game Tracking**: Utilizes an SQLite database to track each game's details, including wins, losses, and players.
 5. **Game Timer**: Monitor how long it takes to solve each code with an integrated timer.
 6. **Unit Tests**  
-    - Pytest was setup, but only a few tests written
+    - Pytest was setup, but only a few tests written.
     - Goal is to reduce risk of regressions.
 7. **Docker Container**
     - Includes all the necessary dependencies and configurations simplifying the setup and installation process.
