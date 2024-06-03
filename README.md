@@ -52,8 +52,8 @@ Additions implemented beyond the minimal viable product:
 4. **Database and Game Tracking**: Utilizes an SQLite database to track each game's details, including wins, losses, and players.
 5. **Game Timer**: Monitor how long it takes to solve each code with an integrated timer.
 6. **Unit Tests**  
-    - Simplify unit and integration testing.
-    - Reduce risk of regressions.
+    - Pytest was setup, but only a few tests written
+    - Goal is to reduce risk of regressions.
 7. **Docker Container**
     - Includes all the necessary dependencies and configurations simplifying the setup and installation process.
     - Use of a simple dockerfile in lieu of docker compose to limit the number of prerequisites needed to run the program.
